@@ -1,2 +1,1 @@
-Git is a distributed version control system.
-Git is free software.
+这是一个管理活动大学生活动的平台，基于Codeigniter框架
