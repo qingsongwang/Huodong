@@ -1,0 +1,64 @@
+/**
+ * 自定义CSS样式
+ */
+
+body {
+   padding-top: 60px;
+}
+
+.message
+{
+	margin: 0px auto;
+	padding:250px;
+	font-size:20px;
+	text-align:center;
+}
+
+.footer
+{
+	text-align:center;
+}
+
+/**
+ * 弹窗
+ */
+.modal-body  
+{
+	margin: 0px auto;
+	width:400px;
+	padding:30px;
+	
+}
+
+.add-body-content
+{
+	text-align:left;
+}
+
+/**
+ * 验证
+ */
+
+label.valid {
+		  width: 24px;
+		  height: 24px;
+		  background: url(<?=base_url()?>static/img/valid.png) center center no-repeat;
+		  display: inline-block;
+		  text-indent: -9999px;
+		}
+		label.error {
+			font-weight: bold;
+			color: red;
+			padding: 2px 8px;
+			margin-top: 2px;
+		}
+		.page-header
+		{
+			text-align:center;
+		}
+		.row
+		{
+			 width:770px;
+			 margin:0 auto;
+		}
+		
