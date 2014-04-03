@@ -1,0 +1,11 @@
+CREATE TABLE `admins` (
+	`tb_admins_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '管理员编号',
+	`tb_admins_userId` INT(11) NOT NULL COMMENT '用户名id',
+	`tb_admins_groupId` INT(11) NOT NULL COMMENT '所属组id',
+	`tb_admins_createTime` TIME NOT NULL,
+	`tb_admins_updateTime` TIME NOT NULL,
+	PRIMARY KEY (`tb_admins_id`)
+)
+COMMENT='管理员表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;

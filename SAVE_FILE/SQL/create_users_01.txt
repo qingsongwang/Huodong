@@ -1,0 +1,26 @@
+CREATE TABLE `users` (
+	`tb_users_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+	`tb_users_name` VARCHAR(10) NOT NULL COMMENT '姓名',
+	`tb_users_stuId` VARCHAR(15) NOT NULL COMMENT '学号',
+	`tb_users_password` CHAR(20) NOT NULL COMMENT '密码',
+	`tb_users_sex` ENUM('M','F') NOT NULL COMMENT '性别',
+	`tb_users_province` VARCHAR(30) NOT NULL COMMENT '省份',
+	`tb_users_birthdate` DATE NOT NULL COMMENT '出生日期',
+	`tb_users_age` INT(4) NOT NULL COMMENT '年龄',
+	`tb_users_idcard` VARCHAR(128) NOT NULL COMMENT '身份证',
+	`tb_users_photoUrl` VARCHAR(128) NOT NULL COMMENT '图片地址',
+	`tb_users_politicStatus` VARCHAR(32) NOT NULL COMMENT '政治面貌',
+	`tb_users_telphone` VARCHAR(32) NOT NULL COMMENT '电话',
+	`tb_users_email` VARCHAR(32) NOT NULL COMMENT '电子邮件',
+	`tb_users_department` VARCHAR(32) NOT NULL COMMENT '系部',
+	`tb_users_address` VARCHAR(32) NOT NULL COMMENT '邮寄地址/宿舍号',
+	`tb_users_skills` VARCHAR(32) NOT NULL COMMENT '特长',
+	`tb_users_signature` VARCHAR(32) NOT NULL COMMENT '个人签名',
+	`tb_users_createTime` TIME NOT NULL COMMENT '加入时间',
+	`tb_users_updateTime` TIME NOT NULL COMMENT '更新日期',
+	`tb_users_check` TINYINT NOT NULL,
+	PRIMARY KEY (`tb_users_id`)
+)
+COMMENT='用户表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
