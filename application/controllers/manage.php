@@ -83,6 +83,21 @@ class Manage extends CI_Controller
 		    echo '1';
 	}
 	
+	function do_role_update($id)
+	{
+		$roleName = @$_POST['roleName'];
+		$shortName = @$_POST['shortName'];
+		$remark = @$_POST['remark'];
+	
+		$this->load->model('Mrbac');
+		$result = $this->Mrbac->update_role($id,$roleName,$shortName,$remark);
+		
+		if($result)
+			echo '0';
+		else
+			echo '1';
+	}
+	
 	//角色列表
 	function roleList()
 	{
@@ -97,7 +112,6 @@ class Manage extends CI_Controller
 
 	}
 	
-	
 	//角色列表()
 	function role_list()
 	{
@@ -105,6 +119,25 @@ class Manage extends CI_Controller
 		$data['role_list'] = $this->Mrbac->get_all_role();
 		//var_dump($data['role_list']);
 		$this->load->view('/Manage/Role/role_edit',$data);
+	}
+	
+	function get_roleJson_byId($id)
+	{
+		$this->load->model('Mrbac');
+		$result= $this->Mrbac->get_role_by_id($id);
+		foreach($result as $row)
+		{
+			$role_name = $row->role_name;
+			$role_shortname = $row->role_shortname;
+			$remark = $row->remark;
+		}
+		
+		@$role = array(
+			"role_name" => $role_name,
+			"role_shortname" => $role_shortname,
+			"remark" => $remark
+		);
+		echo $msg=json_encode($role);
 	}
 
 }
