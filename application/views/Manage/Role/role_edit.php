@@ -60,7 +60,7 @@
                                     <td>
                                         <span class="label label-success">Active</span>
                                         <ul class="actions">
-                                            <a class="btn btn-info" id="edit">编辑</a>
+                                            <a class="btn btn-info" id="edit" onclick=edit(<?=$row->role_id?>)>编辑</a>
                                             <a class="btn btn-info" id="delete" onclick=del(<?=$row->role_id?>)>删除</a>
                                         </ul>
                                     </td>
@@ -79,7 +79,7 @@
 	</div>
 </div>
 
-<!-- hide window of Add role-->
+<!--Add role-->
 <div id="roleAdd" class="modal hide fade">
    <div class="modal-body">
    	<label>增加角色:</label>
@@ -125,13 +125,13 @@
 	</div>
    </div>
 </div>
-<!--end hide window of Add role-->
+<!--Add role-->
 
 
-<!-- hide window of Edit role-->
+<!--Edit role-->
 <div id="roleEdit" class="modal hide fade">
    <div class="modal-body">
-   	<label>增加角色:</label>
+   	<label>修改角色:</label>
     <div class="edit-body-content" id="edit-body-content">
 	<div class="field-box">	
 	
@@ -140,7 +140,7 @@
 			<div class="control-group">
 			    <label class="control-label" >角色名称</label>
 	            <div class="controls">
-			        <input type="text" class="input-xlarge" name="roleName" id="roleName" >
+			        <input type="text" class="input-xlarge" name="roleName" id="eroleName" >
 				</div>
 				<div id="rolenameDiv"></div>
 			</div>
@@ -148,7 +148,7 @@
 			<div class="control-group">
 			    <label class="control-label" >简称</label>
 	               <div class="controls">
-			        <input type="text" class="input-xlarge" name="shortName" id="shortName" placeholder="如：editor">
+			        <input type="text" class="input-xlarge" name="shortName" id="eshortName" placeholder="如：editor">
 				</div>
 				<div id="shortnameDiv"></div>
 			</div>
@@ -156,28 +156,28 @@
 			<div class="control-group">
 			    <label class="control-label" >备注</label>
 	               <div class="controls">
-			        <input type="text" class="input-xlarge" name="remark" id="remark">
+			        <input type="text" class="input-xlarge" name="remark" id="eremark">
 				</div>
 				<div id="remarkDiv"></div>
 			</div>
 			
 			<div id="addRoleButton">
-				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitAdd();" value="确认增加"/>
+				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitEdit()" value="确认修改"/>
 				<button class="btn-glow primary" onclick="Cancel()">取消</button>
 			</div>		
-					
+			<input type="hidden" id="editId" />		
 		</div>
 		
-		<div id="addRoleMsg"></div>
+		<div id="editRoleMsg"></div>
 		
 	</div>
 	</div>
    </div>
 </div>
 
-<!--end hide window of edit role-->
+<!--Edit role END-->
 
-<!-- hide window of delete role-->
+<!--Delete role-->
 <div id="roleDelete" class="modal hide fade">
    <div class="modal-body">
    <div class="delete-modal-body" id="delete-modal-body">
@@ -201,152 +201,6 @@
 </div>
 
 
-<!--end hide window of delete role-->
+<!--Delete role END-->
 
-
-<script>
-
-
-$("#add").click(function(){
-    $('#roleAdd').modal({show:true});
-});
-
-$("#delete").click(function(){
-    $('#roleDelete').modal({show:true});
-});
-
-function del(id)
-{
-	$('#roleDelete').modal({show:true});
-	$('#delId').attr("value",id); //将其中的hidden域中的delId赋值为id
-}
-
-//确认提交
-function submitAdd()
-{
-	var roleName = $("#roleName").val();
-    var shortName = $("#shortName").val();
-	var remark = $("#remark").val();
-	
-				$.ajax({
-					url:'do_role_add', 
-					type:'post',         //数据发送方式
-					dataType:'text',     //接受数据格式
-					data:'roleName='+roleName+'&shortName='+shortName+'&remark='+remark, 
-					success:function(data){  //回传函数(这里是函数名)
-						
-						if(data == 0)
-						{
-							$("#add-body-content").html('<p style="color:red">插入成功！</p><button class="btn-glow primary" onclick="Confirm()">确认</button>'); 
-						}
-						else
-							$("#addRoleMsg").html('<p style="color:red">插入失败！</p>'); 
-					},
-				});
-}
-
-function submitDelete()
-{
-	var id = $("#delId").val();
-				$.ajax({
-					url:'do_role_delete', 
-					type:'post',         //数据发送方式
-					dataType:'text',     //接受数据格式
-					data:'delId='+ id, 
-					success:function(data){  //回传函数(这里是函数名)
-						if(data == 0)
-						{
-							$("#delete-modal-body").html('<p style="color:red">删除成功！</p><button class="btn-glow primary" onclick="Confirm()">确认</button>'); 
-						}
-						else
-							$("#delete-modal-body").html('<p style="color:red">删除失败！</p>'); 
-					},
-				});
-
-}
-
-
-//取消modal
-function Cancel(div)
-{
-	div.modal('hide');
-	 //$('#roleDelete').modal('hide');
-}
-
-//插入完成确认
-function Confirm()
-{
-	window.location.reload(); 
-}
-
-//字段校验
-
-$(document).ready(function(){
-
-	var c1,c2,c3;
-	
-	//验证用户名
-	$("#roleName").blur(function (){	
-		var roleName = $.trim($(this).val());
-		if(roleName.length<= 1)
-		{
-			$("#rolenameDiv").html ('<font color=red>名称必须大于3位</font>');
-			
-			chk();
-		}
-		else
-		{
-			c1 = '1';
-			$("#rolenameDiv").html ('<font color=green>输入正确</font>');chk();
-		}
-				
-	});
-	
-	$("#shortName").blur(function (){	
-		var shortName = $.trim($(this).val());
-		if(shortName.length<= 1)
-		{
-			$("#shortnameDiv").html ('<font color=red>名称必须大于3位</font>');
-			
-			chk();
-		}
-		else
-		{
-			c2 = '1';
-			$("#shortnameDiv").html ('<font color=green>输入正确</font>');chk();
-		}
-				
-	});
-	
-	$("#remark").blur(function (){	
-		var remark = $.trim($(this).val());
-		if(remark.length<= 1)
-		{
-			$("#remarkDiv").html ('<font color=red>名称必须大于3位</font>');
-			
-			chk();
-		}
-		else
-		{
-			c3 = '1';
-			$("#remarkDiv").html ('<font color=green>输入正确</font>');chk();
-		}
-				
-	});
-	
-	function chk()
-	{
-		if((c1 == '1')&&(c2 == '1')&&(c3 == '1'))
-		{
-			$("#submitBtn").attr('disabled',false);  //所有变量都为yes时注册按钮被激活
-		}
-		else
-		{
-			$("#submitBtn").attr('disabled',true); 
-		}
-	}
-	
-});
- // end document.ready
-		
-</script>
+<script class="bootstrap library" src="<?=base_url()?>static/js/role_edit.js" type="text/javascript"></script>
