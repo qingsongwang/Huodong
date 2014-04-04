@@ -38,6 +38,19 @@ class Mrbac extends CI_Model
 		else
 			return false;
 	}
+	
+	//根据role_id获取角色信息
+	function get_role_by_id($role_id)
+	{
+		$sql = "SELECT * FROM rbac_role WHERE role_id = $role_id"; //查询
+		$query = $this->db->query($sql);
+		if($query->num_rows)
+		{
+			return $query->result();
+		}
+		else
+			return false;
+	}
 
 	//获取所有role信息
 	function get_all_role()
@@ -141,6 +154,7 @@ class Mrbac extends CI_Model
 			return false;		
 	}
 	
+	
 	//向数据库中插入角色信息
 	function insert_role($roleName,$shortName,$remark)
 	{
@@ -150,11 +164,20 @@ class Mrbac extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	//更新数据库中的角色信息
+	function update_role($id,$roleName,$shortName,$role_remark)
+	{
+		$sql = "UPDATE rbac_role SET role_name='$roleName', role_shortname='$shortName', remark='$role_remark' WHERE role_id='$id'";
+		$this->db->query($sql);
+		
+		return $this->db->affected_rows();
+	}
+	
 	//删除数据库中的角色信息
 	function delete_role($id)
 	{
 		$sql = "DELETE FROM rbac_role WHERE role_id = '$id'";
-		$this->db->query($sql);
+		$result = $this->db->query($sql);	
 		return $this->db->affected_rows();
 	}
 	
