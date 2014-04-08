@@ -101,18 +101,24 @@ class Manage extends CI_Controller
 	//角色列表
 	function roleList()
 	{
-		if($this->user->session_check())
+		
+		if($this->user->auth_check('roleList'))
 		{
-			$this->public_load();
-			$this->role_list();
-			$this->load->view('/Include/footer');	
-		}
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->role_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
 		else
-			$this->load->view('/Member/login');
-
+			$this->load->view('/Manage/no_auth');
 	}
 	
-	//角色列表()
+	//加载角色列表内容()
 	function role_list()
 	{
 		$this->load->model('Mrbac');
