@@ -26,6 +26,23 @@ class Mrbac extends CI_Model
 	//									 //
 	//									 //
 	///////////////////////////////////////
+	
+	//验证用户动作的权限
+	function action_check($id,$action)
+	{
+		$sql = "SELECT * FROM users,rbac_action,rbac_access,rbac_node,rbac_role WHERE
+			users.tb_users_id = '$id' 
+			AND users.role_id = rbac_access.role_id 
+			AND  rbac_access.node_id  =  rbac_action.node_id 
+			AND rbac_action.action = '$action'";
+		$query = $this->db->query($sql);
+		if($query->num_rows() > 0)
+			return true;
+		else
+			return false;
+	
+	}
+	
 	//根据role_id获取角色名称
 	function get_role_shortname($role_id)
 	{
