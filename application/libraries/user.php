@@ -38,6 +38,15 @@ class User
 			return false;
 	}
 	
+	//权限检查
+	function auth_check($action)
+	{
+		$uid = $this->_CI->session->userdata('uid');
+		$this->_CI->load->model('Mrbac');
+		$result = $this->_CI->Mrbac->action_check($uid,$action);
+		return $result;
+	}
+	
 	
 
 }
