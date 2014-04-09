@@ -208,8 +208,8 @@ class Manage extends CI_Controller
 	//加载文章目录内容
 	function category_list()
 	{
-		$this->load->model('Mrbac');
-		$data['role_list'] = $this->Mrbac->get_all_role();
+		$this->load->model('Marticle');
+		$data['category_list'] = $this->Marticle->get_all_category();
 		//var_dump($data['role_list']);
 		$this->load->view('/Manage/Article/category_list',$data);
 	}
