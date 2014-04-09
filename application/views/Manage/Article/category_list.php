@@ -207,6 +207,6 @@
 	</div>
    </div>
 </div>
-<!--Delete category END-->
+<!--Delete category -->
 
 <script class="bootstrap library" src="<?=base_url()?>static/js/article_category.js" type="text/javascript"></script>
