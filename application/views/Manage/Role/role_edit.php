@@ -62,6 +62,7 @@
                                         <ul class="actions">
                                             <a class="btn btn-info" id="edit" onclick=edit(<?=$row->role_id?>)>编辑</a>
                                             <a class="btn btn-info" id="delete" onclick=del(<?=$row->role_id?>)>删除</a>
+											 <a class="btn btn-info" id="edit" onclick=purEdit(<?=$row->role_id?>)>配置权限</a>
                                         </ul>
                                     </td>
                                 </tr>
@@ -199,8 +200,35 @@
 	</div>
    </div>
 </div>
-
-
 <!--Delete role END-->
+
+<!-- Modify Purview-->
+<div id="purEdit" class="modal hide fade">
+   <div class="modal-body">
+   	<label>配置用户组权限:</label>
+    <div class="edit-body-content" id="edit-body-content">
+	<div class="field-box">	
+	
+		<div id="RoleForm">
+	        
+			<div class="field-box">
+				<h3>正在努力开发中。。。</h3><p>
+            </div>
+	
+			<div id="addRoleButton">
+				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitEdit()" value="确认修改"/>
+				<button class="btn-glow primary" onclick="Cancel()">取消</button>
+			</div>		
+			<input type="hidden" id="purId" />		
+		</div>
+		
+		<div id="editRoleMsg"></div>
+		
+	</div>
+	</div>
+   </div>
+</div>
+
+<!-- Modify Purview End--> 
 
 <script class="bootstrap library" src="<?=base_url()?>static/js/role_edit.js" type="text/javascript"></script>
