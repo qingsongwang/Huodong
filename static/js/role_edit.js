@@ -1,6 +1,13 @@
 
 <!-- Script File-->
 
+function purEdit(id)
+{
+	$('#purEdit').modal({show:true});
+	$('#purId').attr("value",id); //将其中的hidden域中的delId赋值为id
+}
+
+
 
 $("#add").click(function(){
     $('#roleAdd').modal({show:true});
