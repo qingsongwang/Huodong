@@ -101,6 +101,58 @@ class Manage extends CI_Controller
 			echo '1';
 	}
 	
+	 /********************文章*********************/
+	
+	//执行文章分类操作
+	function do_category_add()
+	{
+		$categoryName = @$_POST['categoryName'];
+		$aName = @$_POST['aName'];
+		$remark = @$_POST['remark'];
+		
+		$this->load->model('Marticle');
+		$result = $this->Marticle->insert_category($categoryName,$aName,$remark);
+		
+		if($result)
+			echo '0';
+		else
+			echo '1';
+	}
+	
+	function do_category_update($id)
+	{
+		$categoryName = @$_POST['categoryName'];
+		$aName = @$_POST['aName'];
+		$remark = @$_POST['remark'];
+	
+		$this->load->model('Marticle');
+		$result = $this->Marticle->update_role($id,$categoryName,$aName,$remark);
+		
+		if($result)
+			echo '0';
+		else
+			echo '1';
+	
+	}
+	
+	function do_category_delete()
+	{
+		$id = @$_POST['delId'];
+		
+		$this->load->model('Marticle');
+		$result = $this->Marticle->delete_role($id);
+		if($result)
+			echo '0';
+		else
+		    echo '1';
+	
+	}
+	
+	
+	
+	
+	
+	
 	/********************菜单功能**********************/
 	
 	//角色列表
@@ -214,6 +266,8 @@ class Manage extends CI_Controller
 		$this->load->view('/Manage/Article/category_list',$data);
 	}
 	
+	//获取相对应项目的json数据
+	
 	function get_roleJson_byId($id)
 	{
 		$this->load->model('Mrbac');
@@ -231,6 +285,25 @@ class Manage extends CI_Controller
 			"remark" => $remark
 		);
 		echo $msg=json_encode($role);
+	}
+	
+	function get_categoryJson_byId($id)
+	{
+		$this->load->model('Marticle');
+		$result= $this->Marticle->get_category_by_id($id);
+		foreach($result as $row)
+		{
+			$cname = $row->name;
+			$aname = $row->aname;
+			$remark = $row->remark;
+		}
+		
+		@$category = array(
+			"cname" => $cname,
+			"aname" => $aname,
+			"remark" => $remark
+		);
+		echo $msg=json_encode($category);
 	}
 
 }

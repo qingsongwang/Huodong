@@ -20,7 +20,7 @@
                                 </select>
                             </div>
                             <input type="text" class="search" />
-                            <a class="btn-flat success " id="add">增加分类</a>
+                            <a class="btn-flat success " id="add_category">增加分类</a>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
 
 						   <tbody>
                                 
-							 <?foreach ($category as $row):?>	
+							 <?foreach ($category_list as $row):?>	
 								<!-- row -->
                                 <tr class="first">
                                     <td>
@@ -59,15 +59,17 @@
                                         </div>
                                         <?=$row->name?>
                                     </td>
-                                    <td class="description">
+                                    <td>
                                        <?=$row->aname?>
                                     </td>
-                                    <td></td>
+                                    <td>
+										<?=$row->remark?>
+									</td>
 									<td>
                                        
                                         <ul class="actions">
-                                            <a class="btn btn-info" id="edit" onclick=edit(<?=$row->role_id?>)>编辑</a>
-                                            <a class="btn btn-info" id="delete" onclick=del(<?=$row->role_id?>)>删除</a>
+                                            <a class="btn btn-info" id="edit" onclick=edit(<?=$row->category_id?>)>编辑</a>
+                                            <a class="btn btn-info" id="delete" onclick=del(<?=$row->category_id?>)>删除</a>
 											
                                         </ul>
                                     </td>
@@ -86,106 +88,105 @@
 	</div>
 </div>
 
-<!--Add role-->
-<div id="roleAdd" class="modal hide fade">
+<!--Add category-->
+<div id="categoryAdd" class="modal hide fade">
    <div class="modal-body">
-   	<label>增加角色:</label>
+   	<label>增加文章分组:</label>
     <div class="add-body-content" id="add-body-content">
 	<div class="field-box">	
 	
-		<div id="RoleForm">
+		<div id="CategoryForm">
 	        
 			<div class="control-group">
-			    <label class="control-label">角色名称</label>
+			    <label class="control-label">分组名称</label>
 	            <div class="controls">
-			        <input type="text" class="input-xlarge" name="roleName" id="roleName" >
+			        <input type="text" class="input-xlarge"  id="cName">
 				</div>
-				<div id="rolenameDiv"></div>
+				<div id="cNameDiv"></div>
 			</div>
 	
 			<div class="control-group">
-			    <label class="control-label">简称</label>
+			    <label class="control-label">别名</label>
 	               <div class="controls">
-			        <input type="text" class="input-xlarge" name="shortName" id="shortName" placeholder="如：editor">
+			        <input type="text" class="input-xlarge" name="aName" id="aName" placeholder="如：news">
 				</div>
-				<div id="shortnameDiv"></div>
+				<div id="anameDiv"></div>
 			</div>
 			
 			<div class="control-group">
-			    <label class="control-label">备注</label>
+			    <label class="control-label">简介</label>
 	               <div class="controls">
 			        <input type="text" class="input-xlarge" name="remark" id="remark">
 				</div>
 				<div id="remarkDiv"></div>
 			</div>
 			
-			<div id="addRoleButton">
+			<div id="addCategoryButton">
 				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitAdd();" value="确认增加"/>
 				<button class="btn-glow primary" onclick="Cancel()">取消</button>
 			</div>		
 					
 		</div>
 		
-		<div id="addRoleMsg"></div>
+		<div id="addCategoryMsg"></div>
 		
 	</div>
 	</div>
    </div>
 </div>
-<!--Add role-->
+<!--Add category-->
 
-
-<!--Edit role-->
-<div id="roleEdit" class="modal hide fade">
+<!--Edit category-->
+<div id="categoryEdit" class="modal hide fade">
    <div class="modal-body">
-   	<label>修改角色:</label>
-    <div class="edit-body-content" id="edit-body-content">
+   	<label>修改文章分组:</label>
+    <div class="add-body-content" id="edit-body-content">
 	<div class="field-box">	
 	
-		<div id="RoleForm">
+		<div id="CategoryForm">
 	        
 			<div class="control-group">
-			    <label class="control-label" >角色名称</label>
+			    <label class="control-label">分组名称</label>
 	            <div class="controls">
-			        <input type="text" class="input-xlarge" name="roleName" id="eroleName" >
+			        <input type="text" class="input-xlarge"  id="ecName">
 				</div>
-				<div id="rolenameDiv"></div>
+				<div id="cNameDiv"></div>
 			</div>
 	
 			<div class="control-group">
-			    <label class="control-label" >简称</label>
+			    <label class="control-label">别名</label>
 	               <div class="controls">
-			        <input type="text" class="input-xlarge" name="shortName" id="eshortName" placeholder="如：editor">
+			        <input type="text" class="input-xlarge" name="aName" id="eaName" placeholder="如：news">
 				</div>
-				<div id="shortnameDiv"></div>
+				<div id="anameDiv"></div>
 			</div>
 			
 			<div class="control-group">
-			    <label class="control-label" >备注</label>
+			    <label class="control-label">简介</label>
 	               <div class="controls">
 			        <input type="text" class="input-xlarge" name="remark" id="eremark">
 				</div>
 				<div id="remarkDiv"></div>
 			</div>
 			
-			<div id="addRoleButton">
-				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitEdit()" value="确认修改"/>
+			<div id="addCategoryButton">
+				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitEdit();" value="确认修改"/>
 				<button class="btn-glow primary" onclick="Cancel()">取消</button>
 			</div>		
-			<input type="hidden" id="editId" />		
+			<input type="hidden" id="editId" />			
 		</div>
 		
-		<div id="editRoleMsg"></div>
+		<div id="editCategoryMsg"></div>
 		
 	</div>
 	</div>
    </div>
 </div>
+<!--Edit category-->
 
-<!--Edit role END-->
 
-<!--Delete role-->
-<div id="roleDelete" class="modal hide fade">
+<!--Delete category-->
+<div id="categoryDelete" class="modal hide fade">
    <div class="modal-body">
    <div class="delete-modal-body" id="delete-modal-body">
     
@@ -195,7 +196,7 @@
     </div>
     
 	<div class="m-body-content" id="m-body-content">
-		<div id="deleteRoleButton">
+		<div id="deleteCategoryButton">
 			<input type="hidden" id="delId" />
 			<input type="submit" class="btn-glow primary" onclick="submitDelete()" value="确认删除"/>
 			<button class="btn-glow primary" onclick="Cancel()">取消</button>
@@ -206,35 +207,6 @@
 	</div>
    </div>
 </div>
-<!--Delete role END-->
-
-<!-- Modify Purview-->
-<div id="purEdit" class="modal hide fade">
-   <div class="modal-body">
-   	<label>配置用户组权限:</label>
-    <div class="edit-body-content" id="edit-body-content">
-	<div class="field-box">	
-	
-		<div id="RoleForm">
-	        
-			<div class="field-box">
-				<h3>正在努力开发中。。。</h3><p>
-            </div>
-	
-			<div id="addRoleButton">
-				<input  class="btn-glow primary" id="submitBtn" type="button" onclick="submitEdit()" value="确认修改"/>
-				<button class="btn-glow primary" onclick="Cancel()">取消</button>
-			</div>		
-			<input type="hidden" id="purId" />		
-		</div>
-		
-		<div id="editRoleMsg"></div>
-		
-	</div>
-	</div>
-   </div>
-</div>
-
-<!-- Modify Purview End--> 
+<!--Delete category END-->
 
 <script class="bootstrap library" src="<?=base_url()?>static/js/article_category.js" type="text/javascript"></script>
