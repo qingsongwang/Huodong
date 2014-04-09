@@ -19,8 +19,8 @@
                     <i class="icon-chevron-down"></i>
                 </a>
                 <ul class="submenu">
-                    <li  class="active"><a href="form-showcase.html">写文章</a></li>
-                    <li><a href="form-wizard.html">目录分类</a></li>
+                    <li  class="active"><a href="articleAdd">写文章</a></li>
+                    <li><a href="categoryList">目录分类</a></li>
                 </ul>
             </li>         
           

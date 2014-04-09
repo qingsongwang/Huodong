@@ -119,6 +119,7 @@ class Manage extends CI_Controller
 			echo '1';
 	}
 	
+	//执行文章分类更新
 	function do_category_update($id)
 	{
 		$categoryName = @$_POST['categoryName'];
@@ -135,6 +136,7 @@ class Manage extends CI_Controller
 	
 	}
 	
+	//执行文章分类删除
 	function do_category_delete()
 	{
 		$id = @$_POST['delId'];
@@ -170,7 +172,8 @@ class Manage extends CI_Controller
 		else
 			$this->load->view('/Manage/no_auth');
 	}
-
+	
+	//权限列表
 	function purviewList()
 	{
 		
@@ -212,6 +215,26 @@ class Manage extends CI_Controller
 		
 	}
 	
+	//发布文章
+	function articleAdd()
+	{
+		if($this->user->auth_check('articleAdd'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->article_add();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+	}
+		
+		
 	//文章分类列表
 	function categoryList()
 	{
@@ -260,6 +283,13 @@ class Manage extends CI_Controller
 		$data['category_list'] = $this->Marticle->get_all_category();
 		//var_dump($data['role_list']);
 		$this->load->view('/Manage/Article/category_list',$data);
+	}
+	
+	function article_add()
+	{
+		$this->load->model('Marticle');
+	
+		$this->load->view('/Manage/Article/article_add');
 	}
 	
 	//获取相对应项目的json数据
