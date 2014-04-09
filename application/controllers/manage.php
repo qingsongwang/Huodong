@@ -56,6 +56,7 @@ class Manage extends CI_Controller
 			$this->load->view('/Member/login');
 	}
 	
+	//执行角色添加
 	function do_role_add()
 	{
 		$roleName = @$_POST['roleName'];
@@ -71,6 +72,7 @@ class Manage extends CI_Controller
 			echo '1';
 	}
 	
+	//执行角色删除
 	function do_role_delete()
 	{
 		$id = @$_POST['delId'];
@@ -83,6 +85,7 @@ class Manage extends CI_Controller
 		    echo '1';
 	}
 	
+	//执行更新角色
 	function do_role_update($id)
 	{
 		$roleName = @$_POST['roleName'];
@@ -97,6 +100,8 @@ class Manage extends CI_Controller
 		else
 			echo '1';
 	}
+	
+	/********************菜单功能**********************/
 	
 	//角色列表
 	function roleList()
@@ -117,7 +122,71 @@ class Manage extends CI_Controller
 		else
 			$this->load->view('/Manage/no_auth');
 	}
+
+	function purviewList()
+	{
+		
+		if($this->user->auth_check('purviewList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->role_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
 	
+	
+	}
+	
+	//文章列表
+	function articleList()
+	{
+		if($this->user->auth_check('articleList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->article_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+		
+	}
+	
+	//文章分类列表
+	function categoryList()
+	{
+		if($this->user->auth_check('categoryList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->category_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+	
+	
+	}
+	
+	
+	/*****************************************************/
 	//加载角色列表内容()
 	function role_list()
 	{
@@ -125,6 +194,24 @@ class Manage extends CI_Controller
 		$data['role_list'] = $this->Mrbac->get_all_role();
 		//var_dump($data['role_list']);
 		$this->load->view('/Manage/Role/role_edit',$data);
+	}
+	
+	//加载文章列表内容
+	function article_list()
+	{
+		$this->load->model('Mrbac');
+		$data['role_list'] = $this->Mrbac->get_all_role();
+		//var_dump($data['role_list']);
+		$this->load->view('/Manage/Article/article_list',$data);
+	}
+	
+	//加载文章目录内容
+	function category_list()
+	{
+		$this->load->model('Mrbac');
+		$data['role_list'] = $this->Mrbac->get_all_role();
+		//var_dump($data['role_list']);
+		$this->load->view('/Manage/Article/category_list',$data);
 	}
 	
 	function get_roleJson_byId($id)
