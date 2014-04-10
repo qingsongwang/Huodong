@@ -36,26 +36,28 @@
         <div class="container-fluid">
             <div id="pad-wrapper">
                 
+				<div id=msg></div>
                 <!-- products table-->
                 <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
-                <div id="title">标题：<input class="input-xxlarge" type="text" id="title" name="title"></div>
+                <div>标题：<input class="input-xxlarge" type="text" id="title" name="title"></div>
 				
-                <div id="author">作者：：<input  type="text" id="author" name="authour"></div>
+                <div>作者：<input  type="text" id="author" name="authour"></div>
                 
-				<div id="category" name="category">分类：
-                <select class="span2">
-					<option>1</option>
+				<div>分类：
+                <select class="span2"  id="category" name="category">
+					<option>社团新闻</option>
                     <option>2</option>
 				</select>
+				
                 </div>
 			
-			  <div id="content" name="content" style="margin:10px 0 auto" >
+			  <div style="margin:10px 0 auto" >
 				<p>文章内容：
-			    <textarea class="summernote"></textarea>                
+			    <textarea class="summernote" id="content"  name="content"></textarea>                
 			  </div>
               
-              <div id="button">
-              	<button class="btn btn-primary">更新</button>
+              <div>
+              	<button class="btn btn-primary" onclick="submitAdd()">发布</button>
                 <button class="btn btn-primary">重置</button>
               </div>
 
@@ -66,23 +68,4 @@
 	
 	<link rel="stylesheet" href="<?=base_url()?>static/summernote/summernote.css">
 	<script type="text/javascript" src="<?=base_url()?>static/summernote/summernote.js"></script>
-	
-	<script>
-		 $(function() {
-      $('.summernote').summernote({
-        height: 200,
-		width:800,
-		
-		toolbar: [
-   
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strike']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
-  
-  ]
-      });
-    });
-	</script>
+	<script type="text/javascript" src="<?=base_url()?>static/js/article.js"></script>
