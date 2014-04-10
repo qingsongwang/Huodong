@@ -100,8 +100,9 @@ class Manage extends CI_Controller
 		else
 			echo '1';
 	}
+	/*****************END role*********************/
 	
-	 /********************文章*********************/
+	/********************article*********************/
 	
 	//执行文章分类操作
 	function do_category_add()
@@ -149,6 +150,25 @@ class Manage extends CI_Controller
 		    echo '1';
 	
 	}
+	
+	//执行发布文章操作
+	function do_article_add()
+	{
+		$title = @$_POST['title'];
+		$author = @$_POST['author'];
+		$cname = @$_POST['category'];
+		$content = @$_POST['content'];
+		
+		$this->load->model('Marticle');
+		$category_id = $this->Marticle->get_categoryId_ByName($cname); //根据分类查找文章分类id
+		$result = $this->Marticle->insert_article($title,$author,$category_id,$content);
+		if($result)
+			echo '0';
+		else
+			echo '1';	
+	
+	}
+	/*****************END article********************/
 	
 	
 	/********************菜单功能**********************/
@@ -291,7 +311,7 @@ class Manage extends CI_Controller
 	
 		$this->load->view('/Manage/Article/article_add');
 	}
-	
+	/***********************************************************/
 	//获取相对应项目的json数据
 	
 	function get_roleJson_byId($id)
@@ -331,5 +351,5 @@ class Manage extends CI_Controller
 		);
 		echo $msg=json_encode($category);
 	}
-
+	/**********************************************************/
 }
