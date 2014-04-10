@@ -38,32 +38,51 @@
                 
                 <!-- products table-->
                 <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
-                <div id="title">标题：<input class="input-xxlarge" type="text" ></div>
+                <div id="title">标题：<input class="input-xxlarge" type="text" id="title" name="title"></div>
 				
-				<div id="category">分类：<select class="span2">
-					<option/>测试
-				</select></div>
-				
-				<div id="content">
-				<p>文章内容：
-				 <textarea class="summernote"></textarea>
-				</div>
+                <div id="author">作者：：<input  type="text" id="author" name="authour"></div>
+                
+				<div id="category" name="category">分类：
+                <select class="span2">
+					<option>1</option>
+                    <option>2</option>
+				</select>
+                </div>
 			
-				
-                <!-- end products table -->
+			  <div id="content" name="content" style="margin:10px 0 auto" >
+				<p>文章内容：
+			    <textarea class="summernote"></textarea>                
+			  </div>
+              
+              <div id="button">
+              	<button class="btn btn-primary">更新</button>
+                <button class="btn btn-primary">重置</button>
+              </div>
 
               
             </div>
         </div>
     </div>
+	
 	<link rel="stylesheet" href="<?=base_url()?>static/summernote/summernote.css">
 	<script type="text/javascript" src="<?=base_url()?>static/summernote/summernote.js"></script>
 	
-
 	<script>
 		 $(function() {
       $('.summernote').summernote({
-        height: 200
+        height: 200,
+		width:800,
+		
+		toolbar: [
+   
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strike']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+  
+  ]
       });
     });
 	</script>
