@@ -42,6 +42,19 @@ class Marticle extends CI_Model
 			return false;
 	}
 	
+	//根据分类获取id
+	function get_categoryId_ByName($cname)
+	{
+		$sql = "SELECT category_id FROM article_category WHERE name = '$cname'"; //查询
+		$query = $this->db->query($sql);
+		if($query->num_rows)
+		{
+			return $query->row()->category_id;
+		}
+		else
+			return false;
+	}
+	
 	//插入分组
 	function insert_category($categoryName,$aName,$remark)
 	{
@@ -60,12 +73,26 @@ class Marticle extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	//删除分组
 	function delete_role($id)
 	{
 		$sql = "DELETE FROM article_category WHERE category_id = '$id'";
 		$result = $this->db->query($sql);	
 		return $this->db->affected_rows();
 	}
+	/**********************************************/
+	
+	/******************文章操作**********************/
+	//插入文章
+	function insert_article($title,$author,$category_id,$content)
+	{
+		$sql = "INSERT INTO articles(title,author,category,content,create_time) VALUES('$title','$author','$category_id','$content',now())";
+		$this->db->query($sql);
+		
+		return $this->db->affected_rows();
+	}
+	
+	
 	/**********************************************/
 	
 }
