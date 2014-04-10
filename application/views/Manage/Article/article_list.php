@@ -13,13 +13,13 @@
         <ul id="dashboard-menu">
             
             <li >
-                <a class="dropdown-toggle" href="#">
+                <a>
                     <i class="icon-edit"></i>
                     <span>文章管理</span>
                     <i class="icon-chevron-down"></i>
                 </a>
-                <ul class="submenu">
-                    <li  class="active"><a href="articleAdd">写文章</a></li>
+                <ul>
+                    <li><a href="articleAdd">写文章</a></li>
                     <li><a href="categoryList">目录分类</a></li>
                 </ul>
             </li>         
