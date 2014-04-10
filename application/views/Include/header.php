@@ -31,7 +31,8 @@
 
     <!-- table specific styles -->
     <link rel="stylesheet" href="<?=base_url()?>static/admin/css/compiled/tables.css" type="text/css" media="screen" />    
-
+	
+	
     
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
