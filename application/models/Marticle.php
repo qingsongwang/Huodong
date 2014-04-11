@@ -91,7 +91,21 @@ class Marticle extends CI_Model
 		
 		return $this->db->affected_rows();
 	}
-	
+
+	//获取文章总数
+	function get_article_num()
+	{
+		$sql = "SELECT * FROM articles";
+		$result = $this->db->query($sql);
+		return $result->num_rows();
+	}
+		
+	//获取页面
+	function get_page($offset,$num) //分页
+	{
+			$query=$this->db->query("SELECT * FROM articles order by article_id desc limit $offset,$num");	//位置，数目
+			return $query->result();
+	}
 	
 	/**********************************************/
 	
