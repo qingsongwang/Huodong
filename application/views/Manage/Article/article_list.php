@@ -1,12 +1,4 @@
- <!-- navbar -->
-    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-          
 
-        
-        </div>
-    </div>
-    <!-- end navbar -->
 
     <!-- sidebar -->
     <div id="sidebar-nav">
@@ -18,9 +10,9 @@
                     <span>文章管理</span>
                     <i class="icon-chevron-down"></i>
                 </a>
-                <ul>
-                    <li><a href="articleAdd">写文章</a></li>
-                    <li><a href="categoryList">目录分类</a></li>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="<?=base_url()?>index.php/manage/articleAdd">写文章</a></li>
+                    <li><a href="<?=base_url()?>index.php/manage/categoryList">目录分类</a></li>
                 </ul>
             </li>         
           
@@ -55,10 +47,10 @@
                                 </select>
                             </div>
                             <input type="text" class="search" />
-                            <a class="btn-flat success new-product">+ 发布新文章</a>
+                            <a class="btn-flat success new-product" href="articleAdd">+ 发布新文章</a>
                         </div>
                     </div>
-
+					
                     <div class="row-fluid">
                         <table class="table table-hover">
                             <thead>
@@ -76,18 +68,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+								
+								<? foreach ($article_list as $row):?>
                                 <!-- row -->
                                 <tr class="first">
                                     <td>
                                         <input type="checkbox" />
+                                        <div class="img">
+                                            <?= $row->article_id?>
+                                        </div>
                                        
-                                        <a href="#" class="name">关于开展2014年合肥学院大学生科技活动周的通知 </a>
+                                        <a href="#" class="name"><?=anchor('manage/article/'.$row->article_id,$row->title)?></a>
                                     </td>
                                     <td class="author">
-                                       汪青松
+                                       <?=$row->author?>
                                     </td>
                                     <td>
-										<a>公告</a>
+										<a><?=$row->category?></a>
                                         <ul class="actions">
                                             <li><a href="#">Edit</a></li>
                                             <li class="last"><a href="#">Delete</a></li>
@@ -95,18 +92,26 @@
                                     </td>
                                 </tr>
                                 <!-- row -->
-                              
+								<? endforeach;?>
                               
                                
                             </tbody>
+							
                         </table>
                     </div>
+					<div id="page">
+						<ul class="pager">
+							<li><a href="<?=$pre?>">上一页</a></li>
+							<li><a href="<?=$next?>">下一页</a></li>
+						</ul>
+					</div>
                 </div>
                 <!-- end products table -->
 
               
             </div>
         </div>
+		
     </div>
 	
     <script src="<?=base_url()?>static/admin/js/theme.js"></script>
