@@ -15,10 +15,10 @@ function submitAdd()
 						
 						if(data == 0)
 						{
-							$("#msg").html('<p style="color:red">发布成功！</p><button class="btn-glow primary" onclick="Confirm()">确认</button>'); 
+							$("#writor").html('<div class="alert alert-success"><p>发布成功！</p></div><a href="articleAdd"  class="btn btn-primary">再写一篇？</a>'); 
 						}
 						else
-							$("#addRoleMsg").html('<p style="color:red">发布失败！</p>'); 
+							$("#writor").html('<p style="color:red">发布失败！</p>'); 
 					},
 				});
 }		
@@ -41,3 +41,29 @@ $(function() {
       });
     });
 	
+//字段校验
+
+$(document).ready(function(){
+
+	var c1;
+	
+	$("#title").blur(function (){	
+		var title = $.trim($(this).val());
+		if(title.length< 1)
+		{
+			$("#msg").html ('<div class="alert alert-error"><font color=red>标题不能为空</font></div>');
+			
+			$("#submitBtn").attr('disabled',true); 
+		}
+		else
+		{
+			c1 = '1';
+			$("#msg").html('');
+			$("#submitBtn").attr('disabled',false);
+		}
+				
+	});
+	
+	
+});
+ // end document.ready
