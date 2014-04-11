@@ -43,6 +43,14 @@ class Manage extends CI_Controller
 		$this->load->view('/Include/nav',$data);
 	}
 	
+	function nav()
+	{
+		$this->load->view('/Include/header');
+		$this->load->view('/Include/nav_new');
+	
+	
+	}
+	
 	
 	//*************role******************//
 	function roleAdd()
@@ -290,11 +298,41 @@ class Manage extends CI_Controller
 	//加载文章列表内容
 	function article_list()
 	{
-		$this->load->model('Mrbac');
-		$data['role_list'] = $this->Mrbac->get_all_role();
-		//var_dump($data['role_list']);
+		$this->load->model('Marticle');
+		
+ 		$config['total_rows']=$this->Marticle->get_article_num();//分类文章总数
+		$config['per_page']=4; //一页显示的文章数
+		$config['page'] = $this->uri->segment(3,0);
+		
+	
+		$pre = $config['page'] - $config['per_page'];
+		if($pre < 0)   //如果小于0，则到头
+		{
+			$pre = 0;
+		}
+				
+		$next = $config['page'] + $config['per_page'];
+		if($next > $config['total_rows'])
+		{
+			$next = $next - $config['per_page'];
+		}		
+		$data['pre'] = base_url().'index.php/manage/articleList/'.$pre;
+		$data['next'] = base_url().'index.php/manage/articleList/'.$next;
+		
+		$data['article_list']=$this->Marticle->get_page($config['page'],$config['per_page']);
+		
+		/* //var_dump($artlist);
+		foreach($artlist as $row)
+		{
+			$query = $this->Marticle->get_category_by_id($row->category);
+			
+		}
+		 */
+		
 		$this->load->view('/Manage/Article/article_list',$data);
 	}
+	
+	
 	
 	//加载文章目录内容
 	function category_list()
