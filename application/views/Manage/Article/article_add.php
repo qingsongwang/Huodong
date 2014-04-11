@@ -1,12 +1,4 @@
- <!-- navbar -->
-    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-          
 
-        
-        </div>
-    </div>
-    <!-- end navbar -->
 
     <!-- sidebar -->
     <div id="sidebar-nav">
@@ -18,7 +10,7 @@
                     <span>文章管理</span>
                     <i class="icon-chevron-down"></i>
                 </a>
-                <ul>
+                <ul class="nav nav-pills nav-stacked">
                     <li><a href="articleAdd">写文章</a></li>
                     <li><a href="categoryList">目录分类</a></li>
                 </ul>
@@ -35,7 +27,7 @@
   
         <div class="container-fluid">
             <div id="pad-wrapper">
-                
+               <div id="writor">
 				<div id=msg></div>
                 <!-- products table-->
                 <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
@@ -57,10 +49,10 @@
 			  </div>
               
               <div>
-              	<button class="btn btn-primary" onclick="submitAdd()">发布</button>
+              	<button class="btn btn-primary" onclick="submitAdd()" id="submitBtn">发布</button>
                 <button class="btn btn-primary">重置</button>
               </div>
-
+			 </div>
               
             </div>
         </div>
