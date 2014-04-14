@@ -99,12 +99,26 @@ class Marticle extends CI_Model
 		$result = $this->db->query($sql);
 		return $result->num_rows();
 	}
-		
+	
+	//获取相应category下的文章数目
+	function get_article_num_by_cateogyId($id)
+	{
+		$sql = "SELECT * FROM articles WHERE articles.category = $id";
+		$result = $this->db->query($sql);
+		return $result->num_rows();
+	}	
+	
 	//获取页面
 	function get_page($offset,$num) //分页
 	{
-			$query=$this->db->query("SELECT * FROM articles order by article_id desc limit $offset,$num");	//位置，数目
+			$query=$this->db->query("SELECT article_id,title,author,content,name,category_id FROM articles,article_category WHERE article_category.category_id = articles.category order by article_id desc limit $offset,$num");	//位置，数目
 			return $query->result();
+	}
+	
+	function get_page_by_category($offset,$num,$id)
+	{
+		$query=$this->db->query("SELECT article_id,title,author,content,name,category_id FROM articles,article_category WHERE article_category.category_id = articles.category and articles.category = '$id' order by article_id desc limit $offset,$num");	//位置，数目
+		return $query->result();
 	}
 	
 	/**********************************************/
