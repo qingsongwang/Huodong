@@ -178,6 +178,9 @@ class Manage extends CI_Controller
 	}
 	/*****************END article********************/
 	
+	/*****************group********************/
+	
+	/*****************END group********************/
 	
 	/********************菜单功能**********************/
 	
@@ -201,7 +204,7 @@ class Manage extends CI_Controller
 			$this->load->view('/Manage/no_auth');
 	}
 	
-	//权限列表
+	//权限列表 （暂未启用 2014年4月14日 15:06:46）
 	function purviewList()
 	{
 		
@@ -243,6 +246,27 @@ class Manage extends CI_Controller
 		
 	}
 	
+	//根据category id列表文章
+	function listByCategory()
+	{
+		$id =  $this->uri->segment(3,0);
+		if($this->user->auth_check('listByCategory')&&!empty($id))
+		{
+		
+			if($this->user->session_check())
+			{	
+				$this->public_load();
+				$this->list_by_category($id);
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+	
+	}
+	
 	//发布文章
 	function articleAdd()
 	{
@@ -261,7 +285,6 @@ class Manage extends CI_Controller
 		else
 			$this->load->view('/Manage/no_auth');
 	}
-		
 		
 	//文章分类列表
 	function categoryList()
@@ -284,6 +307,24 @@ class Manage extends CI_Controller
 	
 	}
 	
+	//社团列表
+	function groupList()
+	{
+		if($this->user->auth_check('groupList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->group_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+	}
 	
 	/*****************************************************/
 	//加载角色列表内容()
@@ -319,20 +360,40 @@ class Manage extends CI_Controller
 		$data['pre'] = base_url().'index.php/manage/articleList/'.$pre;
 		$data['next'] = base_url().'index.php/manage/articleList/'.$next;
 		
-		$data['article_list']=$this->Marticle->get_page($config['page'],$config['per_page']);
-		
-		/* //var_dump($artlist);
-		foreach($artlist as $row)
-		{
-			$query = $this->Marticle->get_category_by_id($row->category);
-			
-		}
-		 */
+		$data['article_list']=$this->Marticle->get_page($config['page'],$config['per_page']);		 
 		
 		$this->load->view('/Manage/Article/article_list',$data);
 	}
 	
+	//根据category id来查看文章
+	function list_by_category($id)
+	{
+		$this->load->model('Marticle');
+		
+ 		$config['total_rows']=$this->Marticle->get_article_num_by_cateogyId($id);//分类文章总数
+		$config['per_page']=4; //一页显示的文章数
+		$config['page'] = $this->uri->segment(4,0);
+		
 	
+		$pre = $config['page'] - $config['per_page'];
+		if($pre < 0)   //如果小于0，则到头
+		{
+			$pre = 0;
+		}
+				
+		$next = $config['page'] + $config['per_page'];
+		if($next > $config['total_rows'])
+		{
+			$next = $next - $config['per_page'];
+		}		
+		$data['pre'] = base_url().'index.php/manage/listByCategory/'.$id.'/'.$pre;
+		$data['next'] = base_url().'index.php/manage/listByCategory/'.$id.'/'.$next;
+		
+		$data['article_list']=$this->Marticle->get_page_by_category($config['page'],$config['per_page'],$id);		 
+		
+		$this->load->view('/Manage/Article/list_by_category',$data);
+	
+	}
 	
 	//加载文章目录内容
 	function category_list()
@@ -346,12 +407,17 @@ class Manage extends CI_Controller
 	function article_add()
 	{
 		$this->load->model('Marticle');
-	
-		$this->load->view('/Manage/Article/article_add');
+		$data['select'] = $this->Marticle->get_all_category();
+		
+		$this->load->view('/Manage/Article/article_add',$data);
 	}
 	/***********************************************************/
+	
+	
+	
 	//获取相对应项目的json数据
 	
+	//根据id获取role名称
 	function get_roleJson_byId($id)
 	{
 		$this->load->model('Mrbac');
@@ -371,6 +437,7 @@ class Manage extends CI_Controller
 		echo $msg=json_encode($role);
 	}
 	
+	//根据id获取category名称
 	function get_categoryJson_byId($id)
 	{
 		$this->load->model('Marticle');
