@@ -3,7 +3,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="index">爱活动<i class="icon-home"></i></a>
+          <a class="brand" href="<?=site_url('manage')?>">爱活动<i class="icon-home"></i></a>
           <div class="nav-collapse collapse"> 
           	<ul class="nav">
           	<?php if (isset($nodes)):?>
