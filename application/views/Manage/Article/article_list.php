@@ -81,10 +81,10 @@
                                         <a href="#" class="name"><?=anchor('manage/article/'.$row->article_id,$row->title)?></a>
                                     </td>
                                     <td class="author">
-                                       <?=$row->author?>
+                                       <?php $no="未知"; print !empty($row->author)?$row->author:$no;?>
                                     </td>
                                     <td>
-										<a><?=$row->category?></a>
+										<a><?=$row->name?></a>
                                         <ul class="actions">
                                             <li><a href="#">Edit</a></li>
                                             <li class="last"><a href="#">Delete</a></li>
