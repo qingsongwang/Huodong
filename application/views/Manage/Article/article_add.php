@@ -13,6 +13,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="articleAdd">写文章</a></li>
                     <li><a href="categoryList">目录分类</a></li>
+					<li><a href="<?=base_url()?>index.php/manage/articleList">文章列表</a></li>
                 </ul>
             </li>         
           
@@ -37,8 +38,9 @@
                 
 				<div>分类：
                 <select class="span2"  id="category" name="category">
-					<option>社团新闻</option>
-                    <option>2</option>
+					<? foreach ($select as $row): ?>
+					<option><?= $row->name;?></option>
+                    <? endforeach;?>
 				</select>
 				
                 </div>
