@@ -13,6 +13,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="<?=base_url()?>index.php/manage/articleAdd">写文章</a></li>
                     <li><a href="<?=base_url()?>index.php/manage/categoryList">目录分类</a></li>
+					<li><a href="<?=base_url()?>index.php/manage/articleList">文章列表</a></li>
                 </ul>
             </li>         
           
@@ -84,10 +85,10 @@
                                        <?php $no="未知"; print !empty($row->author)?$row->author:$no;?>
                                     </td>
                                     <td>
-										<a><?=$row->name?></a>
+										<a><?=anchor('manage/listByCategory/'.$row->category_id,$row->name)?></a>
                                         <ul class="actions">
-                                            <li><a href="#">Edit</a></li>
-                                            <li class="last"><a href="#">Delete</a></li>
+                                            <?=anchor('manage/articleEdit/'.$row->article_id,'编辑')?>
+                                            <?=anchor('manage/articleDelete/'.$row->article_id,'删除')?>
                                         </ul>
                                     </td>
                                 </tr>
