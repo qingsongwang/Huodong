@@ -5,7 +5,9 @@ class Activity extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('Activity/activity_list.php');
+		$this->load->view('Activity/header');
+		$this->load->view('Activity/nav');
+		//$this->load->view('Activity/welcome_message.php');
 	}
 }
 
