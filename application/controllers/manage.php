@@ -259,7 +259,12 @@ class Manage extends CI_Controller
 		}
 		
 	}
-	/*****************END group********************/
+	/*****************END group*************************/
+
+	/*****************member*************************/
+
+	/*****************END member*************************/
+
 	
 	/********************菜单功能**********************/
 	
@@ -424,6 +429,26 @@ class Manage extends CI_Controller
 	
 	
 	}
+
+	//会员列表
+	function memberList()
+	{
+		if($this->user->auth_check('memberList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->member_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+		}
+		else
+			$this->load->view('/Manage/no_auth');
+	}
+
 	/*****************************************************/
 	//加载角色列表内容()
 	function role_list()
@@ -542,12 +567,16 @@ class Manage extends CI_Controller
 	//添加社团
 	function group_add()
 	{
-		//$this->load->model('Marticle');
-		//$data['select'] = $this->Marticle->get_all_category();
-		
 		$this->load->view('/Manage/Group/group_add');
 	}
 	
+	function member_list()
+	{
+		$this->load->view('/Manage/Member/member_list');
+
+
+	}
+
 	
 	
 	/***********************************************************/
