@@ -15,6 +15,30 @@ class Manage extends CI_Controller
 		
 	}
 	
+	//post check
+	function pc($post) 
+	{ 
+		if(!get_magic_quotes_gpc()) 
+		{ 
+			$post = addslashes($post);
+		} 
+		$post = str_replace("_", "\_", $post); 
+		$post = str_replace("%", "\%", $post); 
+		$post = nl2br($post); 
+		$post = htmlspecialchars($post); 
+     
+		return $post; 
+	}
+	
+	//string check test
+	function strCheck()
+	{
+		$str = "Who's John Adams?";
+		echo $str ;
+		echo mysql_real_escape_string($str);
+	}
+	
+	
 	function index()
 	{
 		if($this->user->session_check())
@@ -148,6 +172,7 @@ class Manage extends CI_Controller
 	//执行文章分类删除
 	function do_category_delete()
 	{
+		
 		$id = @$_POST['delId'];
 		
 		$this->load->model('Marticle');
@@ -162,26 +187,77 @@ class Manage extends CI_Controller
 	//执行发布文章操作
 	function do_article_add()
 	{
-		$title = @$_POST['title'];
-		$author = @$_POST['author'];
-		$cname = @$_POST['category'];
-		$content = @$_POST['content'];
-		
-		$this->load->model('Marticle');
-		$category_id = $this->Marticle->get_categoryId_ByName($cname); //根据分类查找文章分类id
-		$result = $this->Marticle->insert_article($title,$author,$category_id,$content);
-		if($result)
-			echo '0';
+		if($this->user->auth_check('articleAdd'))
+		{
+
+		if(isset($_POST)&&$this->user->session_check())  //检查是否有post值和session
+		{
+			$title = $this->pc(trim(@$_POST['title']));
+			$author =$this->pc(trim(@$_POST['author']));
+			$cname = $this->pc(trim(@$_POST['category']));
+			$content = $this->pc(trim(@$_POST['content']));	
+				
+			if(!empty($title)&&!empty($author)&&!empty($cname)&&!empty($content))
+			{
+				$this->load->model('Marticle');
+				$category_id = $this->Marticle->get_categoryId_ByName($cname); //根据分类查找文章分类id
+				$result = $this->Marticle->insert_article($title,$author,$category_id,$content);
+				if($result)
+					echo '0';
+				else
+					echo '1';	
+			}
+			else
+				echo 'error1';
+		}
 		else
-			echo '1';	
+			echo 'error2';
+
+		}
+		else
+		{
+			$this->load->view('/Manage/no_auth');
+		}
 	
 	}
 	/*****************END article********************/
 	
 	/*****************group********************/
-	function do_group_uploadLogo()
+	function do_group_add()
 	{
-	
+		if($this->user->auth_check('groupAdd'))
+		{
+
+			if(isset($_POST)&&$this->user->session_check())  //检查是否有post值和session,按照逻辑默认是具有增加社团权限
+			{
+				$gname = $this->pc(trim(@$_POST['gname']));
+				$chairman = $this->pc(trim(@$_POST['chairman']));
+				$qqgroup = $this->pc(trim(@$_POST['qqgroup']));
+				$contact = $this->pc(trim(@$_POST['contact']));
+				$content = $this->pc(trim(@$_POST['content']));
+					
+				if(!empty($gname)&&!empty($chairman)&&!empty($qqgroup)&&!empty($contact)&&!empty($content))
+				{
+					$this->load->model('Mactivity');
+					$result = $this->Mactivity->insert_group($gname,$chairman,$qqgroup,$contact,$content);
+					if($result)
+						echo '0';
+					else
+						echo '1';	
+				}
+				else
+					echo 'error1';
+			}
+			else
+			{
+				echo 'error2';
+			}
+		}
+		else 	//have no purview
+		{
+			$this->load->view('/Manage/no_auth');
+		}
+		
 	}
 	/*****************END group********************/
 	
@@ -193,7 +269,6 @@ class Manage extends CI_Controller
 		
 		if($this->user->auth_check('roleList'))
 		{
-		
 			if($this->user->session_check())
 			{
 				$this->public_load();
@@ -439,7 +514,29 @@ class Manage extends CI_Controller
 	//社团列表
 	function group_list()
 	{
-		$this->load->view('/Manage/Group/group_list');
+		$this->load->model('Mactivity');
+		$config['total_rows']=$this->Mactivity->get_group_num();//社团总数
+		$config['per_page']=4; //一页显示的社团数
+		$config['page'] = $this->uri->segment(3,0);
+		
+	
+		$pre = $config['page'] - $config['per_page'];
+		if($pre < 0)   //如果小于0，则到头
+		{
+			$pre = 0;
+		}
+				
+		$next = $config['page'] + $config['per_page'];
+		if($next > $config['total_rows'])
+		{
+			$next = $next - $config['per_page'];
+		}		
+		$data['pre'] = base_url().'index.php/manage/groupList/'.$pre;
+		$data['next'] = base_url().'index.php/manage/groupList/'.$next;
+		
+		$data['group_list']=$this->Mactivity->get_page($config['page'],$config['per_page']);
+
+		$this->load->view('/Manage/Group/group_list',$data);
 	}
 	
 	//添加社团
