@@ -18,7 +18,7 @@ function submitAdd()
 							$("#writor").html('<div class="alert alert-success"><p>发布成功！</p></div><a href="articleAdd"  class="btn btn-primary">再写一篇？</a>'); 
 						}
 						else
-							$("#writor").html('<p style="color:red">发布失败！</p>'); 
+							$("#writor").html('<p style="color:red">发布失败！</p><a href="articleAdd"  class="btn btn-primary">再试试？</a>'); 
 					},
 				});
 }		
