@@ -1,24 +1,25 @@
 //确认提交
 function submitAdd()
 {
-	var title = $("#title").val();
-	var author = $("#author").val();
-    var category = $("#category").val();
-	var content = $('.summernote').code();
-	//$('#msg').html(content); //
+	var a = $("#gname").val();
+	var b = $("#chairman").val();
+    var c = $("#qqgroup").val();
+	var d = $('#contact').val();
+	var e = $('#content').val();
+
 				$.ajax({
-					url:'do_article_add', 
+					url:'do_group_add', 
 					type:'post',         //数据发送方式
 					dataType:'text',     //接受数据格式
-					data:'title='+title+'&author='+author+'&category='+category+'&content='+content, 
+					data:'gname='+a+'&chairman='+b+'&qqgroup='+c+'&contact='+d+'&content='+e, 
 					success:function(data){  //回传函数(这里是函数名)
 						
 						if(data == 0)
 						{
-							$("#writor").html('<div class="alert alert-success"><p>发布成功！</p></div><a href="articleAdd"  class="btn btn-primary">再写一篇？</a>'); 
+							$("#writor").html('<div class="alert alert-success"><p>添加成功！</p></div><a href="groupAdd"  class="btn btn-primary">再创建一个？</a>'); 
 						}
 						else
-							$("#writor").html('<p style="color:red">发布失败！</p>'); 
+							$("#writor").html('<p style="color:red">发布失败！</p><a href="groupAdd"  class="btn btn-primary">再试试？</a>'); 
 					},
 				});
 }		
