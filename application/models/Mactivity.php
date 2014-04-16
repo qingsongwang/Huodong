@@ -55,7 +55,22 @@ class Mactivity extends CI_Model
 	{
 		$query=$this->db->query("SELECT gid,name,chairman,qqGroup,contact FROM groups order by gid desc limit $offset,$num");	//位置，数目
 			return $query->result();
+	}
 
+	//获取活动总数目
+	function get_activities_num()
+	{
+		$sql = "SELECT * FROM activities";
+		$result = $this->db->query($sql);
+		return $result->num_rows();
+	}
+
+	//活动分页
+	//分页
+	function get_activity_page($offset,$num)
+	{
+		$query=$this->db->query("SELECT * FROM activities order by id desc limit $offset,$num");	//位置，数目
+			return $query->result();
 	}
 
 	

@@ -299,9 +299,6 @@ class Manage extends CI_Controller
 	}
 
 
-
-
-
 	//角色列表
 	function roleList()
 	{
@@ -452,7 +449,7 @@ class Manage extends CI_Controller
 			if($this->user->session_check())
 			{
 				$this->public_load();
-				$this->group_add();
+				$this->load->view('/Manage/Group/group_add');
 				$this->load->view('/Include/footer');	
 			}
 			else
@@ -483,6 +480,46 @@ class Manage extends CI_Controller
 			$this->load->view('/Manage/no_auth');
 	}
 
+	//活动列表
+	function activityList()
+	{
+		if($this->user->auth_check('activityList'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->activity_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+		}
+		else
+			$this->load->view('/Manage/no_auth');
+
+	}
+
+	//发起活动
+	function activityAdd()
+	{
+		if($this->user->auth_check('activityAdd'))
+		{
+		
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->load->view('/Manage/Activity/activity_add');
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+
+	}
+
 	/*****************************************************/
 	//加载功能节点内容
 	function node_list()
@@ -501,8 +538,8 @@ class Manage extends CI_Controller
 	{
 		$this->load->model('Mrbac');
 		$data['role_list'] = $this->Mrbac->get_all_role();
-		//var_dump($data['role_list']);
-		$this->load->view('/Manage/Role/role_edit',$data);
+		
+		$this->load->view('/Manage/Role/role_list',$data);
 	}
 	
 	//加载文章列表内容
@@ -609,13 +646,8 @@ class Manage extends CI_Controller
 
 		$this->load->view('/Manage/Group/group_list',$data);
 	}
-	
-	//添加社团
-	function group_add()
-	{
-		$this->load->view('/Manage/Group/group_add');
-	}
-	
+
+	//会员列表
 	function member_list()
 	{
 		$this->load->model('Mmember');
@@ -645,6 +677,33 @@ class Manage extends CI_Controller
 
 	}
 
+	function activity_list()
+	{
+		$this->load->model('Mactivity');
+		$config['total_rows']=$this->Mactivity->get_activities_num();//活动总数
+		$config['per_page']=4; //一页显示的活动数
+		$config['page'] = $this->uri->segment(3,0);
+		
+	
+		$pre = $config['page'] - $config['per_page'];
+		if($pre < 0)   //如果小于0，则到头
+		{
+			$pre = 0;
+		}
+				
+		$next = $config['page'] + $config['per_page'];
+		if($next > $config['total_rows'])
+		{
+			$next = $next - $config['per_page'];
+		}		
+		$data['pre'] = base_url().'index.php/manage/activityList/'.$pre;
+		$data['next'] = base_url().'index.php/manage/activityList/'.$next;
+		
+		$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page']);
+
+		$this->load->view('/Manage/Activity/activity_list',$data);
+
+	}
 	
 	
 	/***********************************************************/
