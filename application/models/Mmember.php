@@ -60,7 +60,7 @@ class Mmember extends CI_Model
 		
 		//暂时去掉了省份，生日
 		
-		$sql = "UPDATE users SET tb_users_name = '$name' ,tb_users_stuId = '$stuId' ,tb_users_sex = '$sex', tb_users_age = '$age', tb_users_idcard = '$idcard' ,tb_users_politicStatus = '$politic',tb_users_department = '$department',tb_users_address = '$address' ,tb_users_skills = '$skills' , tb_users_signature = '$signature'
+		$sql = "UPDATE users SET tb_users_name = '$name' ,tb_users_stuId = '$stuId' ,tb_users_sex = '$sex', tb_users_age = '$age', tb_users_idcard = '$idcard' ,tb_users_politicStatus = '$politic',tb_users_department = '$department',tb_users_address = '$address' ,tb_users_skills = '$skills' , tb_users_signature = '$signature',tb_users_updateTime = now()
 			WHERE tb_users_id = $uid";	
 		$this->db->query($sql);
 		return $this->db->affected_rows();
