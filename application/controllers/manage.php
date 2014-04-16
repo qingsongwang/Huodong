@@ -258,6 +258,18 @@ class Manage extends CI_Controller
 		}
 		
 	}
+
+	//上传社团logo
+	function do_logo_upload()
+	{
+		
+		$upFilePath = "c:/wamp/www/Activites/static/resources/grouplogo/";
+    	$fileElementName = 'img';
+    	$allowType = array(".jpg",".gif",".png");
+		$this->load->library ( 'user' );
+		$this->user->upload($fileElementName,$upFilePath,$allowType); 
+	}
+
 	/*****************END group*************************/
 
 	/*****************member*************************/
