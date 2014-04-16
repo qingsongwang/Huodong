@@ -47,6 +47,51 @@ class User
 		return $result;
 	}
 	
-	
+	function upload($fileElementName,$upFilePath,$allowType)
+	{
+		
+		$num = strrpos($_FILES[$fileElementName]['name'],'.'); //查找‘.’在字符串中最后出现的位置
+		$fileSuffixName   = substr($_FILES[$fileElementName]['name'],$num,4);  //截取后缀名字
+		$fileSuffixName   = strtolower($fileSuffixName); //转化成小写
+
+		if(!empty($_FILES[$fileElementName]['error']))
+		{
+			echo 'error';
+
+
+		}else
+		{
+			if(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none')
+			{
+  				 $error = '没有上传文件.';
+			}
+			else
+			{
+				if(!in_array($fileSuffixName,$allowType)) //存在在$allowType总返回true
+				{
+  				 	echo '不允许上传的文件类型'; 
+				}
+				else
+				{
+					$newFile = time().rand(1001,9999).$fileSuffixName;
+					$ok=@move_uploaded_file($_FILES[$fileElementName]['tmp_name'],$upFilePath.$newFile);
+   					if($ok == FALSE)
+   					{
+   						$file_infor = array("file_infor" => "上传失败",
+   							'name' => $_FILES['img']['error']);
+    						echo json_encode($file_infor);
+   					}
+   					else
+   					{
+    					$file_infor = array("file_infor" => "上传成功",
+    						"url" => $newFile);
+    					echo json_encode($file_infor);
+					}
+				}
+
+			}
+			
+		}
+	}
 
 }
