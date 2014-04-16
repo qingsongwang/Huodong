@@ -78,6 +78,16 @@ class Mrbac extends CI_Model
 		//var_dump($result);
 		return 	$result;
 	}
+
+	//获取所有node信息
+	function get_node()
+	{
+		$sql =  "SELECT * FROM rbac_node";
+		$query = $this->db->query($sql);
+		$result = $query->result();
+		//var_dump($result);
+		return 	$result;
+	}
 		
 	//获取Session中的用户id
 	function get_session_uid()

@@ -6,7 +6,7 @@
                 <div class="table-wrapper products-table section">
                     <div class="row-fluid head">
                         <div class="span12">
-                            <h4>用户组管理</h4>
+                            <h4>菜单功能节点列表</h4>
                         </div>
                     </div>
 
@@ -14,67 +14,76 @@
                         <div class="pull-right">
                             <div class="ui-select">
                                 <select>
-                                  <option />Filter users
-                                  <option />Signed last 30 days
-                                  <option />Active users
+                                  <option />用户组
+                                  <option />用户组
+                                  <option />用户组
                                 </select>
                             </div>
                             <input type="text" class="search" />
-                            <a class="btn-flat success " id="add">增加分组</a>
+                            <a class="btn-flat success " id="#">增加模块功能</a>
                         </div>
                     </div>
 
                     <div class="row-fluid">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-condensed" > 
                             <thead>
                                 <tr>
                                     <th class="span1">
                                         <input type="checkbox" />
                                     </th>
-                                    <th class="span1">
-                                    	<span class="line"></span>管理组
-                                    </th>
-                                    <th class="span1">
-                                        <span class="line"></span>简称
-                                    </th>
-                                     <th class="span3">
-                                        <span class="line"></span>拥有权限
-                                    </th>
                                      <th class="span1">
+                                        <span class="line"></span>ID
+                                    </th>
+                                    <th class="span2">
+                                        <span class="line"></span>节点名称
+                                    </th>
+                                   <th class="span2">
+                                        <span class="line"></span>节点链接
+                                    </th>
+                                    <th class="span2">
+                                        <span class="line"></span>父节点ID
+                                    </th>
+                                    <th class="span2">
+                                        <span class="line"></span>层级
+                                    </th>
+                                    <th class="span2">
                                         <span class="line"></span>操作
                                     </th>
                                 </tr>
                             </thead>
                            
-						   <?if(!empty($role_list)):?>
+						   <?if(!empty($node_list)):?>
 
 						   <tbody>
                                 
-							 <?foreach ($role_list as $row):?>	
+							 <?foreach ($node_list as $row):?>	
 								<!-- row -->
                                 <tr class="first">
                                     <td>
                                         <input type="checkbox" />
-                                        <div class="img">
-                                            <?= $row->role_id?>
+                                    </td>
+                                    <td>
+                                    	<div class="img">
+                                            <?= $row->node_id?>
                                         </div>
                                     </td>
-                                    <td>
-                                        <?=$row->role_name?>
+                                    <td >
+                                    	 <?= $row->node_name?>
                                     </td>
-                                    <td>
-                                       <?=$row->role_shortname?> (备注：<?=$row->remark?>)
+                                    <td >
+                                    	 <?= $row->node_url?>
                                     </td>
-                                  	<td>
-                                  		AA
-                                  	</td>
-                                    <td>
-                                        <ul class="actions">
-                                            <a class="btn btn-info" id="edit" onclick=edit(<?=$row->role_id?>)>编辑</a>
-                                            <a class="btn btn-info" id="delete" onclick=del(<?=$row->role_id?>)>删除</a>
-											 <a class="btn btn-info" id="edit" onclick=purEdit(<?=$row->role_id?>)>配置权限</a>
-                                        </ul>
+                                     <td >
+                                    	 <?= $row->pid?>
                                     </td>
+                                     <td >
+                                    	 <?= $row->node_level?>
+                                    </td>
+                                     <td >
+                                    	编辑
+                                    	删除
+                                    </td>
+
                                 </tr>
                                <!--end row-->
                              <?endforeach;?>

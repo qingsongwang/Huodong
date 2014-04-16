@@ -96,5 +96,23 @@ class Mmember extends CI_Model
 		$query = $this->db->query($sql);
 		return	$this->db->affected_rows();
 	}
+
+
+	//后台部分
+
+	//获取注册会员总数
+	function get_member_num()
+	{
+		$sql = "SELECT * FROM users";
+		$result = $this->db->query($sql);
+		return $result->num_rows();
+	}
+
+	//分页
+	function get_page($offset,$num)
+	{
+		$query=$this->db->query("SELECT tb_users_id,tb_users_name,tb_users_stuId,tb_users_telphone,tb_users_department,role_name FROM users,rbac_role WHERE users.role_id = rbac_role.role_id order by tb_users_id desc limit $offset,$num");	//位置，数目
+			return $query->result();
+	}
 	
 }

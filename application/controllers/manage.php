@@ -38,7 +38,7 @@ class Manage extends CI_Controller
 		echo mysql_real_escape_string($str);
 	}
 	
-	
+	//后台首页
 	function index()
 	{
 		if($this->user->session_check())
@@ -67,12 +67,11 @@ class Manage extends CI_Controller
 		$this->load->view('/Include/nav',$data);
 	}
 	
+	//加载后台导航栏
 	function nav()
 	{
 		$this->load->view('/Include/header');
 		$this->load->view('/Include/nav_new');
-	
-	
 	}
 	
 	
@@ -268,6 +267,29 @@ class Manage extends CI_Controller
 	
 	/********************菜单功能**********************/
 	
+	//菜单功能节点列表
+	function nodeList()
+	{
+		if($this->user->auth_check('nodeList'))
+		{
+			if($this->user->session_check())
+			{
+				$this->public_load();
+				$this->node_list();
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+			}
+		else
+			$this->load->view('/Manage/no_auth');
+
+	}
+
+
+
+
+
 	//角色列表
 	function roleList()
 	{
@@ -450,6 +472,18 @@ class Manage extends CI_Controller
 	}
 
 	/*****************************************************/
+	//加载功能节点内容
+	function node_list()
+	{
+		$this->load->model('Mrbac');
+		$data['node_list'] = $this->Mrbac->get_node();
+		//var_dump($data['role_list']);
+		$this->load->view('/Manage/Role/node_list',$data);
+
+	}
+
+
+
 	//加载角色列表内容()
 	function role_list()
 	{
@@ -572,7 +606,29 @@ class Manage extends CI_Controller
 	
 	function member_list()
 	{
-		$this->load->view('/Manage/Member/member_list');
+		$this->load->model('Mmember');
+		$config['total_rows']=$this->Mmember->get_member_num();//会员总数
+		$config['per_page']=4; //一页显示的社团数
+		$config['page'] = $this->uri->segment(3,0);
+		
+	
+		$pre = $config['page'] - $config['per_page'];
+		if($pre < 0)   //如果小于0，则到头
+		{
+			$pre = 0;
+		}
+				
+		$next = $config['page'] + $config['per_page'];
+		if($next > $config['total_rows'])
+		{
+			$next = $next - $config['per_page'];
+		}		
+		$data['pre'] = base_url().'index.php/manage/memberList/'.$pre;
+		$data['next'] = base_url().'index.php/manage/memberList/'.$next;
+		
+		$data['member_list']=$this->Mmember->get_page($config['page'],$config['per_page']);
+
+		$this->load->view('/Manage/Member/member_list',$data);
 
 
 	}

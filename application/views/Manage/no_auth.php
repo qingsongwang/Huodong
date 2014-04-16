@@ -13,7 +13,8 @@
 </head>
 <body>
 
-    <h1>非常抱歉，您无权限操作此功能！</h1>
+    
+    <img src="<?=base_url('static/img/cry.gif')?>"/><h1>非常抱歉，您无权限操作此功能！</h1>
   <h3><div id="time" style="color:red;"></div>秒后跳转到管理主页</h3>
   <h3><div style="color:green"><a href="../member/index">立即跳转</div></h3>
 
