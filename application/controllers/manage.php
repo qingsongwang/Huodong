@@ -272,6 +272,60 @@ class Manage extends CI_Controller
 
 	/*****************END group*************************/
 
+	/*****************activity*************************/
+	function do_activity_add()
+	{
+		if($this->user->auth_check('groupAdd'))
+		{
+
+			if(isset($_POST)&&$this->user->session_check())  //检查是否有post值和session,按照逻辑默认是具有增加社团权限
+			{
+				$aname = $this->pc(trim(@$_POST['aname'])); //活动名称
+				$organizer = $this->pc(trim(@$_POST['organizer'])); 
+				$contact = $this->pc(trim(@$_POST['contact']));
+				$startTime = $this->pc((@$_POST['startTime']));
+				$endTime = $this->pc((@$_POST['endTime']));
+				$introduce = $this->pc((@$_POST['introduce']));
+				$poster = $this->pc(trim(@$_POST['url'])); //海报url
+
+				if(!empty($gname)&&!empty($chairman)&&!empty($qqgroup)&&!empty($contact)&&!empty($content))
+				{
+					$this->load->model('Mactivity');
+					$result = $this->Mactivity->insert_group($gname,$chairman,$qqgroup,$contact,$content);
+					if($result)
+						echo '0';
+					else
+						echo '1';	
+				}
+				else
+					echo 'error1';
+			}
+			else
+			{
+				echo 'error2';
+			}
+		}
+		else 	//have no purview
+		{
+			$this->load->view('/Manage/no_auth');
+		}
+		
+	}
+
+	function do_poster_upload()
+	{		
+		$upFilePath = "c:/wamp/www/Activites/static/resources/poster/";
+    	$fileElementName = 'img';
+    	$allowType = array(".jpg",".gif",".png");
+		$this->load->library ( 'user' );
+		$this->user->upload($fileElementName,$upFilePath,$allowType); 
+
+	}
+	/*****************END activity*************************/
+
+
+
+
 	/*****************member*************************/
 
 	/*****************END member*************************/
