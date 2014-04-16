@@ -1,0 +1,353 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.1
+-- http://www.phpmyadmin.net
+--
+-- 主机: localhost
+-- 生成日期: 2014 年 04 月 16 日 09:25
+-- 服务器版本: 5.5.24-log
+-- PHP 版本: 5.3.13
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- 数据库: `db_activity`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `activities`
+--
+
+CREATE TABLE IF NOT EXISTS `activities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '活动id',
+  `name` varchar(255) NOT NULL COMMENT '活动名称',
+  `place` varchar(255) NOT NULL,
+  `introduce` text NOT NULL,
+  `startTime` datetime NOT NULL COMMENT '开始时间',
+  `endTime` datetime NOT NULL COMMENT '结束时间',
+  `applyEndTime` datetime NOT NULL COMMENT '报名结束时间',
+  `organizer` int(11) NOT NULL COMMENT '组织方',
+  `hotPoint` int(11) NOT NULL COMMENT '热度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `admins`
+--
+
+CREATE TABLE IF NOT EXISTS `admins` (
+  `tb_admins_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员编号',
+  `tb_admins_userId` int(11) NOT NULL COMMENT '用户名id',
+  `tb_admins_groupId` int(11) NOT NULL COMMENT '所属组id',
+  `tb_admins_createTime` time NOT NULL,
+  `tb_admins_updateTime` time NOT NULL,
+  PRIMARY KEY (`tb_admins_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `articles`
+--
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `article_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `category` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='文章内容' AUTO_INCREMENT=15 ;
+
+--
+-- 转存表中的数据 `articles`
+--
+
+INSERT INTO `articles` (`article_id`, `title`, `author`, `category`, `content`, `create_time`) VALUES
+(1, 'D', 'D', 1, '<p>D</p>', '2014-04-11 14:07:28'),
+(2, '翰墨轩书画协会第16届理事换届大会顺利进行', 'ADMIN', 1, '<p><span></span>DDDDDDDDDDDDDDDDDD</p>', '2014-04-11 14:21:37'),
+(3, '红巾时代话剧社2014年换届大会圆满落幕', 'ad', 1, '<p><span style="color: rgb(143, 193, 227); font-fa', '2014-04-11 14:23:45'),
+(4, '红巾时代话剧社2014年换届大会圆满落幕', '', 1, '<p><span style="color: rgb(143, 193, 227); font-fa', '2014-04-11 14:24:41'),
+(5, '翰墨轩书画协会第16届理事换届大会顺利进行', 'AD', 1, '<p>翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行<br></p>', '2014-04-11 14:30:49'),
+(6, '翰墨轩书画协会第16届理事换届大会顺利进行', '', 1, '<p>翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行<br></p>', '2014-04-11 14:30:57'),
+(7, 'DDDDDDDD', '', 1, '<p><span style="font-weight: bold; font-style: italic;">翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行</span><br></p>', '2014-04-11 14:31:12'),
+(8, '翰墨轩书画协会第16届理事换届大会顺利进行', '', 1, '<p>翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行翰墨轩书画协会第16届理事换届大会顺利进行<br></p>', '2014-04-11 14:31:31'),
+(9, '9', 'AAA', 1, '<p><span style="color: rgb(143, 193, 227); font-family: 宋体; font-size: 20px; font-weight: bold; line-height: 30px; text-align: center;">翰墨轩书画协会第16届理事换届大会顺利进行</span><br></p>', '2014-04-11 14:32:16'),
+(10, 'AAAAAAA', 'AAAAAAA', 2, '<p>AAAAAAAAAAAAA</p>', '2014-04-14 13:41:11'),
+(12, '\\x00', 'ddd', 1, '<p>dddd</p>', '2014-04-15 14:11:43'),
+(13, 'd', 'd', 1, '<p>d</p>', '2014-04-15 14:31:34'),
+(14, '', 'd', 1, '<p>d</p>', '2014-04-15 14:32:14');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `article_category`
+--
+
+CREATE TABLE IF NOT EXISTS `article_category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL DEFAULT '0',
+  `aname` varchar(256) NOT NULL DEFAULT '0',
+  `remark` varchar(512) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='文章分类' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `article_category`
+--
+
+INSERT INTO `article_category` (`category_id`, `name`, `aname`, `remark`) VALUES
+(1, '社团新闻', '', '存放社团联合会平日开展活动的新闻'),
+(2, '通知', '0', '0'),
+(3, '学院新闻', '学院新闻', '存放学院新闻');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `groups`
+--
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `gid` int(11) NOT NULL AUTO_INCREMENT COMMENT '社团id',
+  `name` varchar(255) NOT NULL DEFAULT '0' COMMENT '社团名称',
+  `logo` varchar(255) NOT NULL DEFAULT '0' COMMENT '头像',
+  `chairman` varchar(255) DEFAULT '0' COMMENT '负责人',
+  `qqGroup` varchar(255) DEFAULT '0' COMMENT 'QQ群',
+  `contact` varchar(255) DEFAULT '0' COMMENT '联系方式',
+  `introduce` text COMMENT '社团介绍',
+  `memberCount` int(10) NOT NULL DEFAULT '0' COMMENT '网上已注册人数',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`gid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='社团组织' AUTO_INCREMENT=16 ;
+
+--
+-- 转存表中的数据 `groups`
+--
+
+INSERT INTO `groups` (`gid`, `name`, `logo`, `chairman`, `qqGroup`, `contact`, `introduce`, `memberCount`, `createTime`) VALUES
+(1, 'DDDD', '0', '社团新闻', 'DDDDD', '汪青松', 'DDDD', 0, '2014-04-15 11:25:55'),
+(2, '大学生环保协会', '0', '汪青松', '8888888888', '130130130130', '', 0, '2014-04-15 11:26:25'),
+(8, '晴天影社', '0', '汪青松', '9999999999999999', '1301301300099', '', 0, '2014-04-15 11:35:58'),
+(12, 'dddddd', '0', 'd', 'd', 'd', 'd', 0, '2014-04-15 15:58:08'),
+(13, 'dddddd', '0', 'd', 'd', 'd', 'd', 0, '2014-04-15 16:00:50'),
+(14, 'ddddddd', '0', 'ddddddd', 'ddddddd', 'ddddddd', 'ddddddd', 0, '2014-04-15 16:18:24'),
+(15, 'EE精英社', '0', 'QS', '5555555555', '5555555555555', '5555555555555555', 0, '2014-04-15 16:53:54');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `rbac_access`
+--
+
+CREATE TABLE IF NOT EXISTS `rbac_access` (
+  `role_id` int(11) NOT NULL,
+  `node_id` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `action` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作与用户组对应表';
+
+--
+-- 转存表中的数据 `rbac_access`
+--
+
+INSERT INTO `rbac_access` (`role_id`, `node_id`, `pid`, `action`) VALUES
+(1, 1, 0, ''),
+(1, 2, 0, ''),
+(1, 3, 0, ''),
+(2, 3, 0, ''),
+(2, 31, 3, ''),
+(2, 32, 3, ''),
+(1, 12, 1, ''),
+(1, 23, 2, ''),
+(1, 31, 3, ''),
+(1, 32, 3, ''),
+(1, 4, 0, ''),
+(1, 41, 4, ''),
+(1, 33, 3, ''),
+(1, 34, 3, ''),
+(1, 5, 0, ''),
+(1, 51, 5, ''),
+(1, 52, 5, ''),
+(1, 11, 1, ''),
+(1, 42, 4, ''),
+(1, 21, 2, ''),
+(1, 22, 2, '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `rbac_action`
+--
+
+CREATE TABLE IF NOT EXISTS `rbac_action` (
+  `node_id` int(11) NOT NULL,
+  `action` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='方法名\r\n操作方法名';
+
+--
+-- 转存表中的数据 `rbac_action`
+--
+
+INSERT INTO `rbac_action` (`node_id`, `action`) VALUES
+(41, 'roleList'),
+(31, 'articleList'),
+(32, 'categoryList'),
+(33, 'articleAdd'),
+(34, 'listByCategory'),
+(51, 'groupList'),
+(52, 'groupAdd'),
+(11, 'memberList'),
+(42, 'nodeList'),
+(21, 'activityList'),
+(22, 'activityAdd');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `rbac_node`
+--
+
+CREATE TABLE IF NOT EXISTS `rbac_node` (
+  `node_id` int(11) NOT NULL AUTO_INCREMENT,
+  `node_name` varchar(255) NOT NULL DEFAULT '0',
+  `node_title` varchar(255) NOT NULL,
+  `node_url` varchar(50) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `node_level` tinyint(1) NOT NULL,
+  PRIMARY KEY (`node_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='操作节点' AUTO_INCREMENT=53 ;
+
+--
+-- 转存表中的数据 `rbac_node`
+--
+
+INSERT INTO `rbac_node` (`node_id`, `node_name`, `node_title`, `node_url`, `pid`, `node_level`) VALUES
+(1, '用户管理', '', '', 0, 1),
+(2, '活动管理', '', '', 0, 1),
+(3, '文章管理', '', '', 0, 1),
+(4, '权限管理', '', '', 0, 1),
+(5, '社团组织管理', '', '', 0, 1),
+(11, '查看用户', '', 'manage/memberList', 1, 2),
+(12, '删除用户', '', '', 1, 2),
+(21, '查看活动', '', 'manage/activityList', 2, 2),
+(22, '发起活动', '', 'manage/activityAdd', 2, 2),
+(23, '删除活动', '', '', 2, 2),
+(31, '查看文章', '', 'manage/articleList', 3, 2),
+(32, '目录管理', '', 'manage/categoryList', 3, 2),
+(41, '用户组管理', '', 'manage/roleList', 4, 2),
+(42, '功能菜单节点管理', '', 'manage/nodeList', 4, 2),
+(51, '查看登记社团', '', 'manage/groupList', 5, 2),
+(52, '添加社团', '', '', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `rbac_role`
+--
+
+CREATE TABLE IF NOT EXISTS `rbac_role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(25) NOT NULL,
+  `role_shortname` varchar(25) DEFAULT NULL,
+  `remark` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`role_id`),
+  UNIQUE KEY `role_name` (`role_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户组表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `rbac_role`
+--
+
+INSERT INTO `rbac_role` (`role_id`, `role_name`, `role_shortname`, `remark`) VALUES
+(1, '管理员', 'admin', '超级管理员'),
+(2, '编辑', 'editor', '小编23');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `session_id` varchar(40) NOT NULL DEFAULT '0',
+  `ip_address` varchar(45) NOT NULL DEFAULT '0',
+  `user_agent` varchar(120) NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text NOT NULL,
+  PRIMARY KEY (`session_id`),
+  KEY `last_activity_idx` (`last_activity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `tb_users_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `tb_users_name` varchar(128) NOT NULL COMMENT '姓名',
+  `tb_users_stuId` varchar(10) DEFAULT NULL COMMENT '学号',
+  `tb_users_password` char(32) NOT NULL COMMENT '密码',
+  `tb_users_sex` enum('M','F') NOT NULL COMMENT '性别',
+  `tb_users_province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `tb_users_birthdate` timestamp NULL DEFAULT NULL COMMENT '出生日期',
+  `tb_users_age` int(4) DEFAULT NULL COMMENT '年龄',
+  `tb_users_idcard` varchar(128) DEFAULT NULL COMMENT '身份证',
+  `tb_users_photoUrl` varchar(128) DEFAULT NULL COMMENT '图片地址',
+  `tb_users_politicStatus` varchar(32) DEFAULT NULL COMMENT '政治面貌',
+  `tb_users_telphone` varchar(32) NOT NULL COMMENT '电话',
+  `tb_users_email` varchar(32) NOT NULL COMMENT '电子邮件',
+  `tb_users_department` varchar(32) DEFAULT NULL COMMENT '系部',
+  `tb_users_address` varchar(32) DEFAULT NULL COMMENT '邮寄地址/宿舍号',
+  `tb_users_skills` varchar(32) DEFAULT NULL COMMENT '特长',
+  `tb_users_signature` varchar(32) DEFAULT NULL COMMENT '个人签名',
+  `tb_users_createTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '加入时间',
+  `tb_users_updateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新日期',
+  `tb_users_check` tinyint(4) NOT NULL DEFAULT '0',
+  `role_id` mediumint(11) NOT NULL COMMENT '用户组',
+  PRIMARY KEY (`tb_users_id`),
+  UNIQUE KEY `tb_users_stuId` (`tb_users_stuId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `users`
+--
+
+INSERT INTO `users` (`tb_users_id`, `tb_users_name`, `tb_users_stuId`, `tb_users_password`, `tb_users_sex`, `tb_users_province`, `tb_users_birthdate`, `tb_users_age`, `tb_users_idcard`, `tb_users_photoUrl`, `tb_users_politicStatus`, `tb_users_telphone`, `tb_users_email`, `tb_users_department`, `tb_users_address`, `tb_users_skills`, `tb_users_signature`, `tb_users_createTime`, `tb_users_updateTime`, `tb_users_check`, `role_id`) VALUES
+(1, '汪青松', '1004031010', '5aa2b775554748b11d0547a512037a59', 'F', NULL, NULL, 23, '342425199312016598', NULL, '中共党员', '13013088523', '1004031010@qq.com', '计算机科学与技术系', '安徽省合肥市锦绣大道158号', '计算机，篮球', '风一样的男子，大神级人物', '0000-00-00 00:00:00', '2014-04-16 09:14:34', 0, 1),
+(2, '黄炎昌', '1004031009', '5aa2b775554748b11d0547a512037a59', 'M', NULL, NULL, 23, '', NULL, '中共党员', '13053081786', '1004031009@qq.com', '计算机科学与技术系', '安徽省霍邱县', '网络工程，吹牛逼', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 2);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_group_relation`
+--
+
+CREATE TABLE IF NOT EXISTS `user_group_relation` (
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `gid` int(11) NOT NULL COMMENT '社团id',
+  `createTime` datetime NOT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会员加入的社团';
+
+--
+-- 转存表中的数据 `user_group_relation`
+--
+
+INSERT INTO `user_group_relation` (`uid`, `gid`, `createTime`) VALUES
+(1, 2, '0000-00-00 00:00:00');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
