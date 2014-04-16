@@ -19,8 +19,11 @@
 				
 				<div>联系方式：<input  type="text" id="contact" name="contact"></div>
 				
-				<div>社团LOGO：<input id="fileupload" type="file" name="files[]" data-url="<?=base_url()?>upload/" multiple></div>
-				<div id="filemsg"></div><div id="imgmsg"></div>
+				<div>社团LOGO： 
+				<input id="img" type="file" size="45" name="img" class="input">
+				<button id="view">查看</button>
+				<img id="viewImg" />
+        		<button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">上传</button></div>
 				
 		
 				
@@ -41,27 +44,39 @@
 	
 
 	<script type="text/javascript" src="<?=base_url()?>static/js/group.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>upload/js/jquery.fileupload.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>upload/js/jquery.fileupload-process.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>upload/js/jquery.iframe-transport.js.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>static/js/ajaxfileupload.js"></script>
 	
 	
 	
 	<script>
-$(function () {
 
-   $('#fileupload').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-				url = file.name;
-                $('<p/>').text(file.name+'上传成功！').appendTo($('#filemsg'));
-            });
-        }
-		
-	
-    });
-	
-	
-});
+
+function ajaxFileUpload()
+{
+      $.ajaxFileUpload({
+                            url:'do_logo_upload', //你处理上传文件的服务端
+                            secureuri:false,
+                            fileElementId:'img',
+                            dataType: 'json',
+                            success: function (data)
+                                  {
+                                    alert(data.file_infor);
+                                    $('#viewImg').attr('src',getRootWeb()+'/static/resources/grouplogo/'+data.url);
+
+                                  }
+                               }
+                         )
+
+                       return false;
+                 } 
+
+   function getRootWeb(){
+    	var strFullPath=window.document.location.href; 
+    	var strPath=window.document.location.pathname; 
+    	var pos=strFullPath.indexOf(strPath); 
+    	var prePath=strFullPath.substring(0,pos); 
+    	var postPath=strPath.substring(0,strPath.substr(1).indexOf('/')+1); 
+    	return(prePath+postPath); 
+    }
+
 </script>
