@@ -106,6 +106,7 @@
 						    
 	              <div class="form-actions">
 			            <input type="submit" class="btn btn-primary btn-large" name="submit" id="submit" value="确认注册">
+	    			      <button class="btn" onclick=haveId()>我已经有账号</button>
 	    			      <button type="reset" class="btn">清空表单</button>
 	        			</div>
 						  </fieldset>
@@ -218,7 +219,14 @@
 
 	}); // end document.ready
 		
-		</script>
+		
+	function haveId()
+	{
+		window.location.href = "<?=base_url()?>index.php/member/login";
+	}
+
+	</script>
+
 
   </body>
 </html>
