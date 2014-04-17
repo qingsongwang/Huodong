@@ -53,7 +53,7 @@
 	<script>
 		function reg()
 		{
-			window.location="<?=base_url()?>index.php/member/reg_new"
+			window.location="<?=base_url()?>index.php/member/reg"
 		}
 
 		function login()
