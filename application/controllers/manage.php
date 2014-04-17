@@ -285,13 +285,14 @@ class Manage extends CI_Controller
 				$contact = $this->pc(trim(@$_POST['contact']));
 				$startTime = $this->pc((@$_POST['startTime']));
 				$endTime = $this->pc((@$_POST['endTime']));
+				$place = $this->pc(trim(@$_POST['place']));
 				$introduce = $this->pc((@$_POST['introduce']));
 				$poster = $this->pc(trim(@$_POST['url'])); //海报url
 
-				if(!empty($gname)&&!empty($chairman)&&!empty($qqgroup)&&!empty($contact)&&!empty($content))
+				if(!empty($aname)&&!empty($organizer)&&!empty($contact)&&!empty($startTime)&&!empty($endTime)&&!empty($place)&&!empty($introduce)&&!empty($poster))
 				{
 					$this->load->model('Mactivity');
-					$result = $this->Mactivity->insert_group($gname,$chairman,$qqgroup,$contact,$content);
+					$result = $this->Mactivity->insert_activity($aname,$organizer,$contact,$startTime,$endTime,$place,$introduce,$poster);
 					if($result)
 						echo '0';
 					else
@@ -314,9 +315,9 @@ class Manage extends CI_Controller
 
 	function do_poster_upload()
 	{		
-		$upFilePath = "c:/wamp/www/Activites/static/resources/poster/";
-    	$fileElementName = 'img';
-    	$allowType = array(".jpg",".gif",".png");
+		$upFilePath = "c:/wamp/www/Activites/static/resources/poster/";  //海报路径
+    	$fileElementName = 'poster'; //input id  
+    	$allowType = array(".jpg",".gif",".png"); 
 		$this->load->library ( 'user' );
 		$this->user->upload($fileElementName,$upFilePath,$allowType); 
 
