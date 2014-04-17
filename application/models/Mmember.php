@@ -19,16 +19,33 @@ class Mmember extends CI_Model
 		$this->load->database();
 	}
 
+	//post check
+	function pc($post) 
+	{ 
+		if(!get_magic_quotes_gpc()) 
+		{ 
+			$post = addslashes($post);
+		} 
+		$post = str_replace("_", "\_", $post); 
+		$post = str_replace("%", "\%", $post); 
+		$post = nl2br($post); 
+		$post = htmlspecialchars($post); 
+     
+		return $post; 
+	}
+
+
 	//插入用户
 	function insert_user()
 	{
-		$email = $this->input->post('email');	//邮箱
-		$regpwd1 = MD5($this->input->post('regpwd1'));	//密码
+
+		$email = $this->pc(trim($this->input->post('email')));	//邮箱
+		$regpwd1 =  $this->pc(trim(MD5($this->input->post('regpwd1'))));	//密码
 		$regpwd2 = MD5($this->input->post('regpwd2'));
 
-		$stuId = $this->input->post('regstuId');  //学号
-		$name = $this->input->post('regname');  //姓名
-		$telphone = $this->input->post('regtel');   //手机
+		$stuId =  $this->pc(trim($this->input->post('regstuId')));  //学号
+		$name =  $this->pc(trim($this->input->post('regname')));  //姓名
+		$telphone =  $this->pc(trim($this->input->post('regtel')));   //手机
 	
 
 		$sql = "INSERT INTO users(tb_users_id,tb_users_email,tb_users_password,tb_users_stuId,tb_users_name,tb_users_telphone,tb_users_createTime,tb_users_updateTime)
@@ -41,18 +58,19 @@ class Mmember extends CI_Model
 	//更新用户信息
 	function update_user($uid)
 	{
-		$name = $this->input->post('name');
-		$stuId = $this->input->post('stuId');
-		$sex = $this->input->post('sex_group');
-		$province = $this->input->post('province');
-		$birthdate = $this->input->post('birthdate');
-		$age = $this->input->post('age');
-		$idcard = $this->input->post('idcard');
-		$politic = $this->input->post('politic_group');
-		$department = $this->input->post('department');
-		$address = $this->input->post('address');
-		$skills = $this->input->post('skills');
-		$signature = $this->input->post('signature');
+		$name = $this->pc(trim($this->input->post('name')));
+		$stuId = $this->pc(trim($this->input->post('stuId')));
+		$sex = $this->pc(trim($this->input->post('sex_group')));
+		$province = $this->pc(trim($this->input->post('province')));
+		$birthdate =$this->pc(trim( $this->input->post('birthdate')));
+		$age = $this->pc(trim($this->input->post('age')));
+		$idcard = $this->pc(trim($this->input->post('idcard')));
+		$politic = $this->pc(trim($this->input->post('politic_group')));
+		$department = $this->pc(trim($this->input->post('department')));
+		$class = $this->pc(trim($this->input->post('department')));
+		$address = $this->pc(trim($this->input->post('address')));
+		$skills =$this->pc(trim( $this->input->post('skills')));
+		$signature = $this->pc(trim($this->input->post('signature')));
 		
 		//完整版sql
 		//$sql = "UPDATE users SET tb_users_name = $name ,tb_users_stuId = $stuId ,tb_users_sex = $sex, tb_users_province = $province, tb_users_birthdate = $birthdate, tb_users_age = $age, tb_users_idcard = $idcard ,tb_users_politicStatus = $politicStatus,tb_users_department = $department,tb_users_address = $address ,tb_users_skills = $skills , tb_users_signature = $signature
@@ -60,7 +78,7 @@ class Mmember extends CI_Model
 		
 		//暂时去掉了省份，生日
 		
-		$sql = "UPDATE users SET tb_users_name = '$name' ,tb_users_stuId = '$stuId' ,tb_users_sex = '$sex', tb_users_age = '$age', tb_users_idcard = '$idcard' ,tb_users_politicStatus = '$politic',tb_users_department = '$department',tb_users_address = '$address' ,tb_users_skills = '$skills' , tb_users_signature = '$signature',tb_users_updateTime = now()
+		$sql = "UPDATE users SET tb_users_name = '$name' ,tb_users_stuId = '$stuId' ,tb_users_sex = '$sex', tb_users_age = '$age', tb_users_idcard = '$idcard' ,tb_users_politicStatus = '$politic',tb_users_department = '$department',tb_users_class = '$class',tb_users_address = '$address' ,tb_users_skills = '$skills' , tb_users_signature = '$signature',tb_users_updateTime = now()
 			WHERE tb_users_id = $uid";	
 		$this->db->query($sql);
 		return $this->db->affected_rows();
