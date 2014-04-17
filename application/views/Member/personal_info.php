@@ -147,10 +147,19 @@
                                 </select>
                             </div>
                         </div>
+                        
+                        <div class="field-box">
+                            <label>班级:</label>
+                            <input class="span5 inline-input" type="text" name="class" id="class" value="<?php echo $class?>" />
+                        </div>
+
+
+
                         <div class="field-box">
                             <label>年龄:</label>
                             <input class="span5 inline-input" type="text" name="age" id="age" value="<?php echo $age?>" />
                         </div>
+
 						<div class="field-box">
                             <label>身份证:</label>
                             <input class="span5 inline-input" type="text" name="idcard" id="idcard" value="<?php echo $idcard?>" />
