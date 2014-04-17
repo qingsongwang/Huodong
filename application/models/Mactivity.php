@@ -73,6 +73,15 @@ class Mactivity extends CI_Model
 			return $query->result();
 	}
 
-	
-	
+
+	//*************************activity操作**************************
+	function insert_activity($aname,$organizer,$contact,$startTime,$endTime,$place,$introduce,$poster)
+	{
+		$sql = "INSERT INTO activities(name,organizer,contact,startTime,endTime,place,introduce,poster,createTime) VALUES('$aname','$organizer','$contact','$startTime','$endTime','$place','$introduce','$poster',now())";
+		$this->db->query($sql);
+		
+		return $this->db->affected_rows();	
+	}
+
+
 }
