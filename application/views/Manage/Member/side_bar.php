@@ -10,7 +10,7 @@
                 </a>
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="<?=base_url()?>index.php/manage/">添加会员</a></li>
-                    <li><a href="<?=base_url()?>index.php/manage/groupList">会员列表</a></li>
+                    <li><a href="<?=base_url()?>index.php/manage/memberList">会员列表</a></li>
 					
                 </ul>
             </li>         
