@@ -13,6 +13,7 @@ class Member extends CI_Controller
 	function __construct(){
 		parent::__construct();
 		$this->load->library ( 'avatarlib' ); 
+		$this->load->library ( 'user' ); 
 	}
 	
 	//用户中心主页
@@ -109,10 +110,16 @@ class Member extends CI_Controller
 	//上传头像方法
 	public function upload_avatar() 
 	{ 
-	 	$data['uid'] = $this->session->userdata('uid');
-		$data ['avatarflash'] = $this->avatarlib->uc_avatar ( $data ['uid'] ); 
-		$data ['avatarhtml'] = $this->avatarlib->avatar_show($data ['uid'] ,'big'); 
-		$this->load->view ( 'avatar', $data );
+			if($this->user->session_check())
+			{
+				$data['uid'] = $this->session->userdata('uid');
+				$data ['avatarflash'] = $this->avatarlib->uc_avatar ( $data ['uid'] ); 
+				$data ['avatarhtml'] = $this->avatarlib->avatar_show($data ['uid'] ,'big'); 
+				$this->load->view ( 'avatar', $data );
+			}
+			else
+				$this->load->view('/Member/login');
+	 	
 	}
 	
 	//完成头像上传
@@ -126,6 +133,13 @@ class Member extends CI_Controller
 	//编辑用户信息（登陆完成后默认显示的界面）
 	function edit_user()
 	{
+		
+
+
+
+
+
+
 		if($this->user->session_check())
 		{
 			$data['email'] = $this->session->userdata('email');
@@ -145,6 +159,7 @@ class Member extends CI_Controller
 			$data['telphone'] = $row['tb_users_telphone'];
 			$data['email'] = $row['tb_users_email'];
 			$data['department'] = $row['tb_users_department'];
+			$data['class'] = $row['tb_users_class'];
 			$data['address'] = $row['tb_users_address'];
 			$data['skills'] = $row['tb_users_skills'];
 			$data['signature'] = $row['tb_users_signature'];
