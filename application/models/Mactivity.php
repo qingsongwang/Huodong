@@ -50,10 +50,10 @@ class Mactivity extends CI_Model
 		return $result->num_rows();
 	}
 
-	//分页
+	//社团分页
 	function get_page($offset,$num)
 	{
-		$query=$this->db->query("SELECT gid,name,chairman,qqGroup,contact FROM groups order by gid desc limit $offset,$num");	//位置，数目
+		$query=$this->db->query("SELECT * FROM groups order by gid desc limit $offset,$num");	//位置，数目
 			return $query->result();
 	}
 
