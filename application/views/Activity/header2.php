@@ -9,7 +9,7 @@
 	<!--CSS library-->
     <link class="bootstrap library" rel="stylesheet" type="text/css" href="<?=base_url()?>static/css/bootstrap.min.css">
     <link class="bootstrap library" rel="stylesheet" type="text/css" href="<?=base_url()?>static/css/bootstrap-responsive.min.css">
-	<link href="<?=base_url()?>static/css/activity.css" type="text/css" rel="stylesheet" />
+	
 	
 
 	<!--JS library-->
@@ -32,6 +32,34 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 	
-   
+    <style type="text/css">
+body {margin:40px auto;  font-size:12px; color:#666;}
+.item{
+  border: 1px solid #D4D4D4;
+    color: blue;
+    margin: 0 10px 10px 0;
+    padding: 20px;
+    position: relative;
+    width: 338px;
+}
+.loading-wrap{
+  bottom: 50px;
+  width: 100%;
+  height: 52px;
+  text-align: center;
+  display: none;
+}
+.loading {
+  padding: 10px 10px 10px 52px;
+  height: 32px;
+  line-height: 28px;
+  color: #FFF;
+  font-size: 20px;
+  border-radius: 5px;
+  background: 10px center rgba(0,0,0,.7);
+}
+.footer{
+  border: 2px solid #D4D4D4;
+}
+</style>
 </head>
-<body>

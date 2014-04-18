@@ -19,8 +19,9 @@
 				<img src="<?=base_url('static/img/320.png')?>" alt="">
 				</a>
 			</li>
-			...
 			</ul>
+			新春植树节
+			<button class="btn">围观报名</button>
 		</div>
 		<div class="span4">
 			<ul class="thumbnails">

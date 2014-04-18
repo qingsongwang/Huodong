@@ -1,36 +1,34 @@
-<div class="container">
-	<div class="row">
-		<div class="span12">
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a href="#">首页</a>
-				</li>
-				<li>
-					<a href="#">活动</a>
-				</li>
-				<li class="disabled">
-					<a href="#">社团</a>
-				</li>
-				<li class="dropdown pull-right">
-					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="#">操作</a>
-						</li>
-						<li>
-							<a href="#">设置栏目</a>
-						</li>
-						<li>
-							<a href="#">更多设置</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">分割线</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<?php include('body.php')?>
+<div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="<?=base_url()?>">爱活动</a>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li class="active"><a href="<?=base_url()?>">主页</a></li>
+                <li><a href="<?=site_url('/activity/hd')?>">活动</a></li>
+                <li><a href="<?=site_url('activity/group')?>">社团</a></li>
+                <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
+                
+                <li class=""><a href="<?=site_url('/member/login')?>">登录</a></li>
+                <li><a href="<?=site_url('/member/reg')?>">注册</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div>
+
+
+
+   
