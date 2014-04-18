@@ -14,7 +14,7 @@
 	<script src="<?=base_url()?>static/js/jquery.validate.js"></script>
 	<style>
 		*{margin:0;padding: 0;}
-		body{background: #444 url(<?=base_url()?>static/img/carbon_fibre_big.png);font-family:"宋体";}
+		body{font-family:"宋体";}
 		.loginBox{width:420px;height:230px;padding:0 20px;border:1px solid #fff; color:#000; margin-top:40px; border-radius:8px;background: white;box-shadow:0 0 15px #222; background: -moz-linear-gradient(top, #fff, #efefef 8%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font:11px/1.5em 'Microsoft YaHei' ;position: absolute;left:50%;top:50%;margin-left:-210px;margin-top:-115px;}
 		.loginBox h2{height:45px;font-size:18px;font-weight:normal;}
 		.loginBox .left{border-right:1px solid #ccc;height:100%;padding-right: 20px; }
@@ -24,6 +24,7 @@
   </head>
   <body>
     <div class="container">
+
         <section class="loginBox row-fluid">
           <section class="span7 left">
             <h2>会员登录</h2>
@@ -72,7 +73,7 @@
 							$("#msg").html('<p style="color:red">帐号或密码错误</p>');
 						}
 						else
-							  window.location.href="<?=base_url()?>index.php/manage";
+							  window.location.href="<?=site_url('activity/hd')?>";
 							
 							//$("#email_msg").html('<img src="<?=base_url()?>static/img/error.png" />非常遗憾这个帐号已经被人注册了！');
 					},
