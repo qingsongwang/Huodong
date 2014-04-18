@@ -17,11 +17,11 @@
 				<div>联系方式：<input  type="text" id="contact" name="contact"></div>
 				
         <div>开始时间：
-          <input size="16" type="text" id="startTime" value="" readonly class="form_datetime">
+          <input size="16" type="text" id="startTime" value="2014-4-17 20:50" readonly class="form_datetime">
         </div>
 
         <div>结束时间：
-          <input size="16" type="text" id="endTime" value="" readonly class="form_datetime">
+          <input size="16" type="text" id="endTime" value="2014-4-17 20:51" readonly class="form_datetime">
         </div>
 
         <div>活动地点：<input  type="text" id="place" name="place"></div>
