@@ -48,7 +48,9 @@
 			
 			 <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="<?=base_url()?>index.php/manage">后台管理主页</a></li>
+                    <li class="disabled"><a href="<?=base_url()?>index.php/manage">前往管理主页</a></li>
+                     <li class="disabled"><a href="<?=base_url('activity/hd')?>index.php">返回活动主页</a></li>
+                      <li class="disabled"><a href="<?=base_url('activity')?>">返回社团主页</a></li>
                 </ul>
             </div>
 			
@@ -57,11 +59,7 @@
                 <li class="hidden-phone">
                     <input class="search" type="text" />
                 </li>
-                <li class="settings">
-                    <a href="personal-info.html" role="button">
-                        <span class="navbar_icon"></span>
-                    </a>
-                </li>
+               
                 <li id="fat-menu" class="dropdown">
                     <a href="<?=base_url()?>index.php/member/logout" role="button" class="logout" alt="退出">
                         <span class="icon-share-alt"></span>
