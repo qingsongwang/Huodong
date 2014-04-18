@@ -134,12 +134,6 @@ class Member extends CI_Controller
 	function edit_user()
 	{
 		
-
-
-
-
-
-
 		if($this->user->session_check())
 		{
 			$data['email'] = $this->session->userdata('email');
