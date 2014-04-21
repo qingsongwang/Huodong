@@ -108,20 +108,34 @@ class Activity extends CI_Controller {
 	}
 
 	//报名活动
-	function applyActivity()
+	function do_applyActivity()
 	{
 		if($this->user->session_check())
 		{
-			
-			$aid = trim($_POST['id']); //活动id
+			$aid = trim($_POST['id']); //活动aid
 			$this->load->model('Mmember');
-			$data['uid'] = $this->session->userdata('uid');
+			$data['uid'] = $this->session->userdata('uid'); //从session中获取uid
 			$row = $this->Mmember->get_user_info($data['uid']);   //根据uid获取用户的信息
 			$data['name'] = $row['tb_users_name'];
+			$this->load->model('Mactivity');
+			$result = $this->Mactivity->apply_activity($data['uid'],$aid);  //写入数据库
+			if($result > 0)
+				echo '<div class="alert alert-success">报名成功，等待审核！</div>';
+			if($result == '0') //已经报名啦
+				echo '<div class="alert alert-error">该活动你已经报名过啦！</div>';
+			else
+				echo '<div class="alert alert-error">很抱歉，报名失败</div>';
 			
 		}
 		else
-			echo '你必须得登录'; 
+			echo  "你必须得登录<a href=\"<?=site_url('member/login')?>\">去登陆</a>";  //链接有问题
+	}
+
+	function getActivityJsonById($id)
+	{	
+		$this->load->model('Mactivity');
+		$result = $this->Mactivity->get_activity_byId($id);
+		echo $msg=json_encode($result);
 	}
 
 	
