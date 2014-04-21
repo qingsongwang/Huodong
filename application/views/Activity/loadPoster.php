@@ -9,7 +9,7 @@
 		<p><img src="<?=base_url('static/resources/poster/').'/'.$row->poster?>" style="width: 300px; height: 400px;"/>
 		<p>时间：<?=$row->startTime?> - <?=$row->endTime?>
 		<p>地点：<?=$row->place?> 
-		<p><button class="btn" onclick=viewPoster()>报名围观</button>
+		<p><button class="btn" onclick=viewPoster(<?=$row->id?>)>报名围观</button>
 	</div>
 <? endforeach;?>
 </div>
@@ -24,11 +24,12 @@
 <div id="viewPoster" class="modal hide fade">
  <div class="modal-body">
 	<div id="container" style="margin:0px auto;width:500px;">
-		<div id="mPoster"><img src="http://127.0.0.1/Activites/static/resources/poster/13977390708980.jpg"/></div>
-		<div id="mTime">时间：2012年5月13日-2012年3月12日</div>
-		<div id="mPlace">地点：致用礼堂</div>
-		<div id="mApply">已经报名人数：88</div>
-		<button class="btn">确认报名</button>
+		<div><img  id="mPoster" src=""/></div>
+		<div id="mTime"></div>
+		<div id="mPlace"></div>
+		<div id="mApply"></div>
+		<input type="hidden" id="mId"/><!--标记id-->
+		<button class="btn" onclick=applyActivity()>确认报名</button>
 	</div>
  </div>
 </div>
@@ -95,19 +96,45 @@ $(function(){
     	return(prePath+postPath); 
     }
 
-    function applyActivity(id)
+    function applyActivity()
     {
+    	var id = $('#mId').val();
     	$.post(
-    		'applyActivity',
+    		'do_applyActivity',
     		{"id":id},
     		function(data)
-    		{},
-    		'text'
+    		{
+    			$('#container').html(data);
+
+    		},
+    		'html'
     		);
     }
 
-    function viewPoster()
+    //modal窗口展示海报
+    function viewPoster(id)
     {
+    	
+    	$('#mId').attr('value',id);	
+    	$.getJSON('getActivityJsonById/'+id,function(data){
+    	if(data)
+		{
+			var startTime = data[0]['startTime'];
+			var endTime = data[0]['endTime'];
+			var place = data[0]['place'];
+			var poster = getRootWeb()+'/static/resources/poster/'+data[0]['poster'];
+			var count = data[0]['count'];
+			$('#mTime').html("时间："+startTime+"-"+endTime);
+			$('#mPlace').html("地点："+place);
+			$('#mApply').html("报名人数："+count);
+			$('#mPoster').attr("src",poster);
+			
+		}
+		else
+			alert('加载数据失败了亲o(︶︿︶)o 唉');
+
+    	});
+    	
     	$('#viewPoster').modal({show:true});
     }
   
