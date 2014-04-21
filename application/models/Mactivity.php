@@ -19,11 +19,6 @@ class Mactivity extends CI_Model
 	}
 	
 	
-	function check()
-	{
-		
-	
-	}
 	
 	function inject_check($sql_str) 
     {
@@ -73,6 +68,13 @@ class Mactivity extends CI_Model
 			return $query->result();
 	}
 
+	//根据id获取活动信息
+	function get_activity_byId($id)
+	{
+		$query = $this->db->query("SELECT * FROM activities WHERE id = '$id'");
+		return $query->result_array();
+	}
+
 
 	//*************************activity操作**************************
 	function insert_activity($aname,$organizer,$contact,$startTime,$endTime,$place,$introduce,$poster)
@@ -83,5 +85,23 @@ class Mactivity extends CI_Model
 		return $this->db->affected_rows();	
 	}
 
+
+	//*************************user-activity操作**************************
+	//报名活动 参数为 用户id 和 活动id
+	function apply_activity($uid,$aid)
+	{
+		$sql = "SELECT count(*) FROM user_activity_relation WHERE uid = '$uid' AND aid='$aid'";
+		$isHave = $this->db->query($sql);
+		if($isHave == '0')	 
+		{
+			$sql = "INSERT INTO user_activity_relation(uid,aid,createTime) VALUES('$uid','$aid',now())";
+			$this->db->query($sql);
+			return $this->db->affected_rows();	
+		}
+		else 
+			return '0';	//已经报名了
+
+		
+	}
 
 }
