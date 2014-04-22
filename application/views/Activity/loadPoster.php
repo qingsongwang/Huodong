@@ -68,7 +68,7 @@ $(function(){
 							html += "<div class=\"item\" style=\"height:550px;\">";
 							html += "<h3>"+data[i]['name']+"</h3>";
 							html += "<p><img src="+l+" style=\"width: 300px; height: 400px;\"/>"
-							html += "<p>时间："+data[i]['startTime']+"-"+data[i]['endTime']+"<p>地点："+data[i]['place']+"<p><button class=\"btn\" onclick=viewPoster()>报名围观</button></div>";
+							html += "<p>时间："+data[i]['startTime']+"-"+data[i]['endTime']+"<p>地点："+data[i]['place']+"<p><button class=\"btn\" onclick=viewPoster("+data[i]['id']+")>报名围观</button></div>";
 							 $last_id +=  3 ;
 						}
 						var $newElems = $(html).css({ opacity: 0 }).appendTo($container);
