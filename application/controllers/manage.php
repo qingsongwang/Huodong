@@ -273,6 +273,7 @@ class Manage extends CI_Controller
 	/*****************END group*************************/
 
 	/*****************activity*************************/
+	//执行添加活动
 	function do_activity_add()
 	{
 		if($this->user->auth_check('groupAdd'))
@@ -313,6 +314,7 @@ class Manage extends CI_Controller
 		
 	}
 
+	//上传海报
 	function do_poster_upload()
 	{		
 		$upFilePath = "c:/wamp/www/Activites/static/resources/poster/";  //海报路径
@@ -321,6 +323,12 @@ class Manage extends CI_Controller
 		$this->load->library ( 'user' );
 		$this->user->upload($fileElementName,$upFilePath,$allowType); 
 
+	}
+
+	//执行审核活动
+	function do_check_ActivitApply()
+	{	
+		
 	}
 	/*****************END activity*************************/
 
@@ -544,7 +552,8 @@ class Manage extends CI_Controller
 			if($this->user->session_check())
 			{
 				$this->public_load();
-				$this->activity_list();
+				$gid = $this->session->userdata('gid');
+				$this->activity_list($gid);
 				$this->load->view('/Include/footer');	
 			}
 			else
@@ -575,6 +584,29 @@ class Manage extends CI_Controller
 
 	}
 
+	//活动报名审核
+	function activityCheck()
+	{
+
+		$aid =  $this->uri->segment(3,0);
+
+		if($this->user->auth_check('activityCheck')&&!empty($aid))
+		{
+			if($this->user->session_check())
+			{
+				
+
+				$this->public_load();
+				$this->activity_check_list($aid );
+				$this->load->view('/Include/footer');	
+			}
+			else
+				$this->load->view('/Member/login');
+		}
+		else
+			$this->load->view('/Manage/no_auth');
+	}
+
 	/*****************************************************/
 	//加载功能节点内容
 	function node_list()
@@ -585,8 +617,6 @@ class Manage extends CI_Controller
 		$this->load->view('/Manage/Role/node_list',$data);
 
 	}
-
-
 
 	//加载角色列表内容()
 	function role_list()
@@ -732,11 +762,11 @@ class Manage extends CI_Controller
 
 	}
 
-	function activity_list()
+	function activity_list($gid)
 	{
 		$this->load->model('Mactivity');
-		$config['total_rows']=$this->Mactivity->get_activities_num();//活动总数
-		$config['per_page']=4; //一页显示的活动数
+		$config['total_rows']=$this->Mactivity->get_group_activities_num($gid);//活动总数
+		$config['per_page']=6; //一页显示的活动数
 		$config['page'] = $this->uri->segment(3,0);
 		
 	
@@ -754,13 +784,32 @@ class Manage extends CI_Controller
 		$data['pre'] = base_url().'index.php/manage/activityList/'.$pre;
 		$data['next'] = base_url().'index.php/manage/activityList/'.$next;
 		
-		$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page']);
+		//$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page'],8);
+
+		$data['activity_list']=$this->Mactivity->get_group_activity_page($config['page'],$config['per_page'],$gid);
+
 
 		$this->load->view('/Manage/Activity/activity_list',$data);
 
 	}
 	
+	//待审核活动会员名单
+	function activity_check_list($aid)
+	{
+		$this->load->model('Mactivity');
+		
+		//$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page'],8);
+		$data['check_list'] = $this->Mactivity->get_unCheckUserId_Byaid($aid);
+		$query_array =  $this->Mactivity->get_activity_byId($aid);
+		
+		foreach ($query_array as $row) 
+		{
+			$data['activity_name'] = $row['name'];	
+		}
 	
+
+		$this->load->view('/Manage/Activity/activity_check_list',$data);
+	}	
 	/***********************************************************/
 	
 	
