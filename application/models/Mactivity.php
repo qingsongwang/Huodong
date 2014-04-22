@@ -52,7 +52,15 @@ class Mactivity extends CI_Model
 			return $query->result();
 	}
 
-	//获取活动总数目
+	//获取单个社团活动总数目
+	function get_group_activities_num($gid)
+	{
+		$sql = "SELECT * FROM activities WHERE gid = '$gid'";
+		$result = $this->db->query($sql);
+		return $result->num_rows();
+	}
+
+	//获取所有社团数目
 	function get_activities_num()
 	{
 		$sql = "SELECT * FROM activities";
@@ -61,10 +69,19 @@ class Mactivity extends CI_Model
 	}
 
 	//活动分页
-	//分页
+	//分页 
+
 	function get_activity_page($offset,$num)
 	{
-		$query=$this->db->query("SELECT * FROM activities order by id desc limit $offset,$num");	//位置，数目
+		$query=$this->db->query("SELECT * FROM activities order by id desc limit $offset,$num ");	//位置，数目
+			return $query->result();
+	}
+	
+
+	//新的活动分页
+	function get_group_activity_page($offset,$num,$gid)
+	{
+		$query=$this->db->query("SELECT * FROM activities WHERE gid = '$gid'  order by id desc limit $offset,$num");	//位置，数目
 			return $query->result();
 	}
 
@@ -90,9 +107,10 @@ class Mactivity extends CI_Model
 	//报名活动 参数为 用户id 和 活动id
 	function apply_activity($uid,$aid)
 	{
-		$sql = "SELECT count(*) FROM user_activity_relation WHERE uid = '$uid' AND aid='$aid'";
-		$isHave = $this->db->query($sql);
-		if($isHave == '0')	 
+		$sql = "SELECT uid FROM user_activity_relation WHERE uid = '$uid' AND aid='$aid'";
+		 $this->db->query($sql);
+		 $isHave = $this->db->affected_rows();
+		if($isHave == 0)	 // 查询记录为0执行插入语句
 		{
 			$sql = "INSERT INTO user_activity_relation(uid,aid,createTime) VALUES('$uid','$aid',now())";
 			$this->db->query($sql);
@@ -100,8 +118,18 @@ class Mactivity extends CI_Model
 		}
 		else 
 			return '0';	//已经报名了
-
-		
 	}
+
+	//根据活动id获取待审核报名用户
+	function get_unCheckUserId_Byaid($aid)
+	{
+		$sql = "SELECT user_activity_relation.id ,users.tb_users_name,users.tb_users_department,users.tb_users_class 
+			FROM  user_activity_relation  LEFT join users on user_activity_relation.uid = users.tb_users_id WHERE aid = '$aid'";
+	
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+
+
 
 }
