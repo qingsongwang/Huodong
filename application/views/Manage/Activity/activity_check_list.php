@@ -5,8 +5,6 @@
 
 	<!-- main container -->
     <div class="content">
-        
-  
         <div class="container">
             <div id="pad-wrapper">
                 <div class="table-wrapper products-table section">
@@ -78,8 +76,8 @@
                                     </td>
                                   
                                     <td>
-                                     
-                      <button class="btn" onclick=check(<?=$row->id?>)>审核通过</button>
+                              <div id="msg<?=$row->id?>">       
+                      <button class="btn" onclick=check(<?=$row->id?>)>审核通过</button></div>
     </div>
                                         
                                     </td>
@@ -109,16 +107,28 @@
     
     function check($id)
     {
+        var id = $id;
+        var tag = "msg"+id;
+        var url = getRootWeb()+'/index.php/manage/do_check_ActivitApply';
        $.post(
-            'do_check_ActivitApply',
+            url,
             {"id":id},
             function(data)
             {
-                $('#container').html(data);
+                alert(data);
 
             },
             'html'
             );
     }    
 
+    //获取文章根目录
+    function getRootWeb(){
+        var strFullPath=window.document.location.href; 
+        var strPath=window.document.location.pathname; 
+        var pos=strFullPath.indexOf(strPath); 
+        var prePath=strFullPath.substring(0,pos); 
+        var postPath=strPath.substring(0,strPath.substr(1).indexOf('/')+1); 
+        return(prePath+postPath); 
+    }
     </script>
