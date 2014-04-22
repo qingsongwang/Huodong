@@ -119,16 +119,21 @@ class Activity extends CI_Controller {
 			$data['name'] = $row['tb_users_name'];
 			$this->load->model('Mactivity');
 			$result = $this->Mactivity->apply_activity($data['uid'],$aid);  //写入数据库
-			if($result > 0)
+
+			if($result == 1)
+			{
 				echo '<div class="alert alert-success">报名成功，等待审核！</div>';
-			if($result == '0') //已经报名啦
-				echo '<div class="alert alert-error">该活动你已经报名过啦！</div>';
+			}	
 			else
-				echo '<div class="alert alert-error">很抱歉，报名失败</div>';
-			
+			{
+				if($result == '0') //已经报名啦
+					echo '<div class="alert alert-error">该活动你已经报名过啦！</div><a class="btn"   href="refresh">好的，我知道了！</a>';
+				else
+					echo '<div class="alert alert-error">很抱歉，报名失败</div>';
+			}
 		}
 		else
-			echo  "你必须得登录<a href=\"<?=site_url('member/login')?>\">去登陆</a>";  //链接有问题
+			echo  '你必须得登录后操作<a href="http://127.0.0.1/Activites/index.php/member/login">去登录</a>';  //链接有问题
 	}
 
 	function getActivityJsonById($id)
@@ -136,6 +141,11 @@ class Activity extends CI_Controller {
 		$this->load->model('Mactivity');
 		$result = $this->Mactivity->get_activity_byId($id);
 		echo $msg=json_encode($result);
+	}
+
+	function refresh()
+	{
+		 redirect('activity/hd', 'refresh');
 	}
 
 	
