@@ -67,7 +67,7 @@ class Mmember extends CI_Model
 		$idcard = $this->pc(trim($this->input->post('idcard')));
 		$politic = $this->pc(trim($this->input->post('politic_group')));
 		$department = $this->pc(trim($this->input->post('department')));
-		$class = $this->pc(trim($this->input->post('department')));
+		$class = $this->pc(trim($this->input->post('class')));
 		$address = $this->pc(trim($this->input->post('address')));
 		$skills =$this->pc(trim( $this->input->post('skills')));
 		$signature = $this->pc(trim($this->input->post('signature')));
