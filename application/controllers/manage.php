@@ -328,7 +328,35 @@ class Manage extends CI_Controller
 	//执行审核活动
 	function do_check_ActivitApply()
 	{	
-		
+		if($this->user->auth_check('groupAdd'))
+		{
+
+			if(isset($_POST)&&$this->user->session_check())  //检查是否有post值和session,按照逻辑默认是具有增加社团权限
+			{
+				$id = $this->pc(trim(@$_POST['id'])); //活动名称
+				
+
+				if(!empty($id))
+				{
+					$this->load->model('Mactivity');
+					$result = $this->Mactivity->update_user_activity_relation($id);
+					if($result > 0)
+						echo '审核成功';
+					else
+						echo '审核失败';	
+				}
+				else
+					echo 'error1';
+			}
+			else
+			{
+				echo 'error2';
+			}
+		}
+		else 	//have no purview
+		{
+			$this->load->view('/Manage/no_auth');
+		}
 	}
 	/*****************END activity*************************/
 
@@ -594,8 +622,6 @@ class Manage extends CI_Controller
 		{
 			if($this->user->session_check())
 			{
-				
-
 				$this->public_load();
 				$this->activity_check_list($aid );
 				$this->load->view('/Include/footer');	
@@ -786,6 +812,11 @@ class Manage extends CI_Controller
 		
 		//$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page'],8);
 
+		if($gid == 0)  //超级管理员
+		{
+			$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page']);
+		}
+		else
 		$data['activity_list']=$this->Mactivity->get_group_activity_page($config['page'],$config['per_page'],$gid);
 
 
