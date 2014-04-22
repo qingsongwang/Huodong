@@ -81,7 +81,7 @@ class Member extends CI_Controller
 			if($query->num_rows > 0)  //查询数据库结果不为0时
 			{
 				$r = $query->row();
-				$sess_data = array('uid'=>$r->tb_users_id,'email'=>$r->tb_users_email,'role_id'=>$r->role_id);
+				$sess_data = array('uid'=>$r->tb_users_id,'email'=>$r->tb_users_email,'role_id'=>$r->role_id,'gid'=>$r->gid);
 				$this->session->set_userdata($sess_data);  //设置cookies
 				echo '0';
 			}
