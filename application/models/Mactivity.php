@@ -130,6 +130,17 @@ class Mactivity extends CI_Model
 		return $query->result();
 	}
 
+	//审核通过，更新relation表中的ischeck
+	function update_user_activity_relation($id)
+	{
+		$sql = "UPDATE user_activity_relation SET isCheck = '1' WHERE id = '$id'";
+		$this->db->query($sql);
+		return $this->db->affected_rows();
+	}
+
+
+
+
 
 
 }
