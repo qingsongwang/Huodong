@@ -11,7 +11,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="<?=base_url()?>index.php/manage/activityAdd">发起活动</a></li>
                     <li><a href="<?=base_url()?>index.php/manage/activityList">活动列表</a></li>
-					
+                  
                 </ul>
             </li>         
           

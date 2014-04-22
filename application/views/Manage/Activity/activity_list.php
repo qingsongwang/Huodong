@@ -75,7 +75,7 @@
                                         <?=$row->name?>
                                     </td>
                                     <td>
-                                       <?=$row->organizer?>
+                                       <?=$row->gid?>
                                     </td>
                                     <td>
 									  <?=$row->startTime?>
@@ -98,7 +98,7 @@
                                      
                                         <button class="btn" >编辑</button>
                                         <button class="btn" >删除</button>
-                                        <button class="btn" >参与情况</button> 
+                                         <button><?=anchor('manage/activityCheck/'.$row->id,'报名审核')?></button>
                                        
                                     </td>
                                 </tr>
