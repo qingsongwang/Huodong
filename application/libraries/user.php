@@ -57,8 +57,6 @@ class User
 		if(!empty($_FILES[$fileElementName]['error']))
 		{
 			echo 'error';
-
-
 		}else
 		{
 			if(empty($_FILES[$fileElementName]['tmp_name']) || $_FILES[$fileElementName]['tmp_name'] == 'none')
