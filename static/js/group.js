@@ -6,12 +6,13 @@ function submitAdd()
     var c = $("#qqgroup").val();
 	var d = $('#contact').val();
 	var e = $('#content').val();
+	var f = $('#url').val();
 
 				$.ajax({
 					url:'do_group_add', 
 					type:'post',         //数据发送方式
 					dataType:'text',     //接受数据格式
-					data:'gname='+a+'&chairman='+b+'&qqgroup='+c+'&contact='+d+'&content='+e, 
+					data:'gname='+a+'&chairman='+b+'&qqgroup='+c+'&contact='+d+'&content='+e+'&url='+f, 
 					success:function(data){  //回传函数(这里是函数名)
 						
 						if(data == 0)
