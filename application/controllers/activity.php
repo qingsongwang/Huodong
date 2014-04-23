@@ -40,9 +40,6 @@ class Activity extends CI_Controller {
 		$this->load->view('Activity/loadPoster',$data);
 	}
 
-
-
-
 	//前台社团
 	function group()
 	{
@@ -65,6 +62,46 @@ class Activity extends CI_Controller {
 		//$this->load->view('Activity/header2');
 		$this->load->view('Activity/loadGroup',$data);
 
+	}
+
+	function viewGroup()
+	{
+		if($this->user->session_check())
+		{
+			$this->load->model('Mmember');
+			$data['uid'] = $this->session->userdata('uid');
+			$row = $this->Mmember->get_user_info($data['uid']);   //根据uid获取用户的信息
+			$data['name'] = $row['tb_users_name'];
+		}
+		$this->load->model('Mactivity');
+				
+		$gid =$this->uri->segment(3, 0); 
+
+		if($gid == 0)
+		{
+			redirect('activity/group');
+		}
+		else
+		{
+			$query = $this->Mactivity->get_group_byId($gid);
+			if($query->num_rows()>0)
+			{
+				$result_array = $this->Mactivity->get_group_IngActivity($gid);
+				
+				$result = $query->row_array();
+				$data['groupName'] = $result['name'];
+				$data['chairman'] = $result['chairman'];
+				$data['qqgroup'] = $result['qqGroup'];
+				$data['tel'] = $result['contact'];
+				$data['intro'] = $result['introduce'];
+				$data['logo'] = $result['logo'];
+				$data['activity_array'] = $result_array;
+				$this->load->view('Activity/view_group',$data);
+			}
+			else
+				redirect('activity/group');
+		}
+		
 	}
 
 	//ajax获取剩下的海报
