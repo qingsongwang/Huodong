@@ -9,13 +9,15 @@
 		<p><img src="<?=base_url('static/resources/poster/').'/'.$row->poster?>" style="width: 300px; height: 400px;"/>
 		<p>时间：<?=$row->startTime?> - <?=$row->endTime?>
 		<p>地点：<?=$row->place?> 
-		<p><button class="btn" onclick=viewPoster(<?=$row->id?>)>报名围观</button>
+		<?	$id = $row->id;echo ($row->isEnd == 1)?'<p><button class=\"btn btn-warning\">活动已经结束</button>': '<p><button class="btn" onclick="viewPoster('.$id.')">报名围观</button>';
+		?>
 	</div>
 <? endforeach;?>
+<input id="last_id" type="hidden" />
 </div>
 
 <div id="loading" class="loading-wrap">
-	<span class="loading">加载中，请稍后...</span>
+	<span id="load" class="loading">加载中，请稍后...</span>
 </div>
 
 <div class="footer"><center>来追我啊o(︶︿︶)o</center></div>
@@ -40,7 +42,8 @@
 
 <script type="text/javascript">	
 $(function(){
-    var $last_id = 0;
+   
+   	var $last_id = $("#last_id").val();
 
     //执行瀑布流
     var $container = $('#liu');
@@ -60,17 +63,31 @@ $(function(){
 				"getPosterMore",
 				{"last_id":$last_id},  //传最后一个poster id
 				function(data){
-					var html = "";
+				
+				if("error" == data)
+				{
+					alert('到头了亲');
+				}
+				else
+				{	var html = "";
+					
 					if($.isArray(data)){
+			
 						for(i in data){
 							var l = getRootWeb()+'/static/resources/poster/'+data[i]['poster'];
-
+							var isEnd = data[i]['isEnd'];
 							html += "<div class=\"item\" style=\"height:550px;\">";
 							html += "<h3>"+data[i]['name']+"</h3>";
-							html += "<p><img src="+l+" style=\"width: 300px; height: 400px;\"/>"
-							html += "<p>时间："+data[i]['startTime']+"-"+data[i]['endTime']+"<p>地点："+data[i]['place']+"<p><button class=\"btn\" onclick=viewPoster("+data[i]['id']+")>报名围观</button></div>";
-							 $last_id +=  3 ;
+							html += "<p><img src="+l+" style=\"width: 300px; height: 400px;\"/>";
+							html += "<p>时间："+data[i]['startTime']+"-"+data[i]['endTime']+"<p>地点："+data[i]['place'];
+							;
+							
+							(isEnd == 1) ? html += "<p><button class=\"btn btn-warning\">活动已经结束</button></div>" : html += "<p><button class=\"btn\" onclick=viewPoster("+data[i]['id']+")>报名围观</button></div>";
+
 						}
+						$last_id = Number($last_id) + 3;
+						$("#last_id").attr('value',$last_id);
+
 						var $newElems = $(html).css({ opacity: 0 }).appendTo($container);
 						$newElems.imagesLoaded(function(){
 							$newElems.animate({ opacity: 1 });
@@ -79,6 +96,8 @@ $(function(){
 				        loading.data("on", false);
 					}
 					loading.fadeOut();
+				
+				}
 				},
 				"json"
 			);
