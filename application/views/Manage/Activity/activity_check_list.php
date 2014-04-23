@@ -1,7 +1,7 @@
 
 
     <?php include 'side_bar.php'?>;
-
+      
 
 	<!-- main container -->
     <div class="content">
@@ -77,7 +77,8 @@
                                   
                                     <td>
                               <div id="msg<?=$row->id?>">       
-                      <button class="btn" onclick=check(<?=$row->id?>)>审核通过</button></div>
+                                 <button class="btn" onclick=tst >审核通过</button>
+                              </div>
     </div>
                                         
                                     </td>
@@ -105,7 +106,18 @@
 
     <script type="text/javascript">
     
-    function check($id)
+    function test()
+    {
+        alert('HH');
+    }
+
+    $("#check").click(function(){
+        alert('HH');
+    });
+
+
+
+    function Membercheck(id)
     {
         var id = $id;
         var tag = "msg"+id;
@@ -115,10 +127,9 @@
             {"id":id},
             function(data)
             {
-                alert(data);
-
+                echo 'data';
             },
-            'html'
+            'text'
             );
     }    
 

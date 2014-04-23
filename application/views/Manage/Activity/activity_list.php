@@ -75,7 +75,7 @@
                                         <?=$row->name?>
                                     </td>
                                     <td>
-                                       <?=$row->gid?>
+                                       <?=$row->organizer?>
                                     </td>
                                     <td>
 									  <?=$row->startTime?>
