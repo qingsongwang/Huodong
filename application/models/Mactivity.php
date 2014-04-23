@@ -29,9 +29,9 @@ class Mactivity extends CI_Model
 	
 	/******************社团group操作**********************/
 	//插入社团
-	function insert_group($gname,$chairman,$qqgroup,$contact,$content)
+	function insert_group($gname,$chairman,$qqgroup,$contact,$content,$logo)
 	{
-		$sql = "INSERT INTO groups(name,chairman,qqgroup,contact,introduce,createTime) VALUES('$gname','$chairman','$qqgroup','$contact','$content',now())";
+		$sql = "INSERT INTO groups(name,chairman,qqgroup,contact,introduce,logo,createTime) VALUES('$gname','$chairman','$qqgroup','$contact','$content','$logo',now())";
 		$this->db->query($sql);
 		
 		return $this->db->affected_rows();
@@ -50,6 +50,13 @@ class Mactivity extends CI_Model
 	{
 		$query=$this->db->query("SELECT * FROM groups order by gid desc limit $offset,$num");	//位置，数目
 			return $query->result();
+	}
+
+	//根据社团gid获取社团详细
+	function get_group_byId($gid)
+	{	
+		$query = $this->db->query("SELECT * FROM groups WHERE gid = '$gid'");
+		return $query;
 	}
 
 	//获取单个社团活动总数目
@@ -109,7 +116,15 @@ class Mactivity extends CI_Model
 			return $query->result();
 	}
 
-	//根据id获取活动信息
+	//根据gid获取正在进行的活动
+	function get_group_IngActivity($gid)
+	{
+		$sql = "SELECT * FROM activities WHERE gid = '$gid' ";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	//根据活动id获取活动信息
 	function get_activity_byId($id)
 	{
 		$query = $this->db->query("SELECT * FROM activities WHERE id = '$id'");
@@ -137,6 +152,9 @@ class Mactivity extends CI_Model
 		if($isHave == 0)	 // 查询记录为0执行插入语句
 		{
 			$sql = "INSERT INTO user_activity_relation(uid,aid,createTime) VALUES('$uid','$aid',now())";
+			//$query = $this->db->query("SELECT memberCount FROM activities WHERE id = '$aid'");
+			//$id = (INT)$query + 1;
+			//$this->db->query("UPDATE activities SET memberCount = '$id' WHERE id = '$aid'");
 			$this->db->query($sql);
 			return $this->db->affected_rows();	
 		}
