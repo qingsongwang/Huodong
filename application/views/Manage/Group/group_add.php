@@ -26,7 +26,7 @@
         		<button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">上传</button></div>
 				
 		
-				
+				<input id="url" type="hidden"/>
 			  
 				<div>社团介绍：
 			    <textarea  id="content"  name="content"  rows="10" style="width: 500px;"></textarea>                
@@ -54,7 +54,7 @@
 function ajaxFileUpload()
 {
       $.ajaxFileUpload({
-                            url:'do_logo_upload', //你处理上传文件的服务端
+                            url:'do_group_upload', //你处理上传文件的服务端
                             secureuri:false,
                             fileElementId:'img',
                             dataType: 'json',
@@ -62,6 +62,7 @@ function ajaxFileUpload()
                                   {
                                     alert(data.file_infor);
                                     $('#viewImg').attr('src',getRootWeb()+'/static/resources/grouplogo/'+data.url);
+                                     $('#url').attr('value',data.url);
 
                                   }
                                }
