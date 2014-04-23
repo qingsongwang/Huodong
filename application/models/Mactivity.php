@@ -70,13 +70,37 @@ class Mactivity extends CI_Model
 
 	//活动分页
 	//分页 
-
 	function get_activity_page($offset,$num)
 	{
-		$query=$this->db->query("SELECT * FROM activities order by id desc limit $offset,$num ");	//位置，数目
-			return $query->result();
+		$query=$this->db->query("SELECT id,endTime FROM activities order by id desc limit $offset,$num ");	//位置，数目
+		$result = $query->result_array();
+		foreach ($result as $row)	//遍历查询的结果，将已过期的活动isEnd设为1
+		{	
+			if($this->timeCheck($row['endTime']))
+			{
+				$update_id = $row['id'];
+				$sql  =  "UPDATE activities SET isEnd = '1' WHERE id = '$update_id'";
+				$this->db->query($sql);
+			}
+		}
+		$query=$this->db->query("SELECT * FROM activities order by id desc limit $offset,$num ");
+		return $query->result();
 	}
 	
+	//检查结束时间与当前的时间戳
+	function timeCheck($time)
+	{
+		$t1 = strtotime($time); //截至时间
+		$time2 = date("Y-m-d H:i:s");  //当前时间
+		$t2 = strtotime($time2);
+
+		if($t1 < $t2)
+			return true;
+		else
+			return false;
+	}
+
+
 
 	//新的活动分页
 	function get_group_activity_page($offset,$num,$gid)
