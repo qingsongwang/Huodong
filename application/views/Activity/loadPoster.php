@@ -142,7 +142,7 @@ $(function(){
 			var endTime = data[0]['endTime'];
 			var place = data[0]['place'];
 			var poster = getRootWeb()+'/static/resources/poster/'+data[0]['poster'];
-			var count = data[0]['count'];
+			var count = data[0]['memberCount'];
 			$('#mTime').html("时间："+startTime+"-"+endTime);
 			$('#mPlace').html("地点："+place);
 			$('#mApply').html("报名人数："+count);
