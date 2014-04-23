@@ -234,11 +234,13 @@ class Manage extends CI_Controller
 				$qqgroup = $this->pc(trim(@$_POST['qqgroup']));
 				$contact = $this->pc(trim(@$_POST['contact']));
 				$content = $this->pc(trim(@$_POST['content']));
-					
+				$logo = $this->pc(trim($_POST['url']));
+				if(empty($logo))
+					$logo = 'test.png';
 				if(!empty($gname)&&!empty($chairman)&&!empty($qqgroup)&&!empty($contact)&&!empty($content))
 				{
 					$this->load->model('Mactivity');
-					$result = $this->Mactivity->insert_group($gname,$chairman,$qqgroup,$contact,$content);
+					$result = $this->Mactivity->insert_group($gname,$chairman,$qqgroup,$contact,$content,$logo);
 					if($result)
 						echo '0';
 					else
@@ -260,7 +262,7 @@ class Manage extends CI_Controller
 	}
 
 	//上传社团logo
-	function do_logo_upload()
+	function do_group_upload()
 	{
 		
 		$upFilePath = "c:/wamp/www/Activites/static/resources/grouplogo/";
