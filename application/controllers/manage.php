@@ -333,7 +333,7 @@ class Manage extends CI_Controller
 
 			if(isset($_POST)&&$this->user->session_check())  //检查是否有post值和session,按照逻辑默认是具有增加社团权限
 			{
-				$id = $this->pc(trim(@$_POST['id'])); //活动名称
+				$id = $this->pc(trim($_POST['id'])); //活动名称
 				
 
 				if(!empty($id))
@@ -346,7 +346,7 @@ class Manage extends CI_Controller
 						echo '审核失败';	
 				}
 				else
-					echo 'error1';
+					echo 'id为空';
 			}
 			else
 			{
@@ -791,8 +791,14 @@ class Manage extends CI_Controller
 	function activity_list($gid)
 	{
 		$this->load->model('Mactivity');
-		$config['total_rows']=$this->Mactivity->get_group_activities_num($gid);//活动总数
-		$config['per_page']=6; //一页显示的活动数
+		
+		if($gid == 0)  //超级管理员
+		{
+			$config['total_rows']=$this->Mactivity->get_activities_num();//活动总数
+		}
+		else
+			$config['total_rows']=$this->Mactivity->get_group_activities_num($gid);//活动总数
+		$config['per_page']=3; //一页显示的活动数
 		$config['page'] = $this->uri->segment(3,0);
 		
 	
