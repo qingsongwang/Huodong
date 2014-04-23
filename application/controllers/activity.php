@@ -33,11 +33,15 @@ class Activity extends CI_Controller {
 		$config['per_page']=3; //一页显示的活动数
 		$config['page']=0;
 		$data['last_id'] = $config['page'];
+
 		$data['activity_list']=$this->Mactivity->get_activity_page($config['page'],$config['per_page']);
 		
 		//$this->load->view('Activity/header2');
 		$this->load->view('Activity/loadPoster',$data);
 	}
+
+
+
 
 	//前台社团
 	function group()
@@ -81,7 +85,7 @@ class Activity extends CI_Controller {
 			echo $list;
 		}
 		else
-			echo 'errro';
+			echo 'error';
 		
 	}
 
@@ -122,7 +126,7 @@ class Activity extends CI_Controller {
 
 			if($result == 1)
 			{
-				echo '<div class="alert alert-success">报名成功，等待审核！</div>';
+				echo '<div class="alert alert-success">报名成功，等待审核！</div><a class="btn"   href="refresh">好的</a>';
 			}	
 			else
 			{
